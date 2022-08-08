@@ -19,15 +19,15 @@ namespace AuthenticationWithClie.Database.Repository
             return blog;
         }
 
-        public static void ShowBlogs()
+        public void ShowBlogs()
         {
             foreach (Blog blog in Blogs)
             {
-                Console.WriteLine($"{blog.Id}. Owner: {Authentication.Account.FirstName}, Content: {blog.Content}, Date: {blog.BlogDateTime}, Blog status: {blog.blogStatus}.");
+                Console.WriteLine($"{blog.Id}. Owner: {blog.Owner.FirstName}, Content: {blog.Content}, Date: {blog.BlogDateTime}, Blog status: {blog.blogStatus}.");
             }
         }
 
-        public static Blog GetBlogbyId(int id)
+        public Blog GetBlogbyId(int id)
         {
             foreach (Blog blog in Blogs)
             {
@@ -38,6 +38,24 @@ namespace AuthenticationWithClie.Database.Repository
 
             }
             return null;
+        }
+        public void DeleteBlogs()
+        {
+            Console.Write("Which blog do you want delete, write id : ");
+            int id = int.Parse(Console.ReadLine());
+            foreach (Blog blog in Blogs)
+            {
+                if (blog.Id == id)
+                {
+                    Blogs.Remove(blog);
+                    Console.WriteLine("Blog deleted. ");
+                }
+                else
+                {
+                    Console.WriteLine("This blog not found. ");
+                }
+            }
+
         }
     }
 }

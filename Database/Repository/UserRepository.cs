@@ -32,7 +32,7 @@ namespace AuthenticationWithClie.Database.Repository
         {
             DbContext.Add(new Admin("Mahmood", "Garibov","male","qaribovmahmud@gmail.com", "123321"));
             DbContext.Add(new Admin("Eshqin", "Mahmudov","male", "eshqin@gmail.com", "123321"));
-            DbContext.Add(new User("Inci", "Mikayilli", "female", "yehya@gmail.com", "123321"));
+            DbContext.Add(new User("Inci", "Mikayilli", "female", "inci@gmail.com", "123321"));
             DbContext.Add(new User("Said", "Mikayilli", "male", "said@gmail.com", "123321"));
         }
 
@@ -114,13 +114,17 @@ namespace AuthenticationWithClie.Database.Repository
             string newFirstName = Console.ReadLine();
             Console.Write("Write new lastname: ");
             string newLastName = Console.ReadLine();
+            Console.Write("Write your gender: ");
+            string newUserGender = Console.ReadLine();
 
             if (UserValidation.IsValidFirstName(newFirstName) &
-            UserValidation.IsValidLastName(newLastName))
+            UserValidation.IsValidLastName(newLastName) &
+            Validation.IsValidGender(newUserGender))
             {
                 Authentication.Account.FirstName = newFirstName;
                 Authentication.Account.LastName = newLastName;
-                Console.WriteLine($"New name and lastname is: {newFirstName} {newLastName}");
+                Authentication.Account.UserGender = newUserGender;
+                Console.WriteLine($"Refreshed info: {newFirstName} {newLastName} {newUserGender}");
             }
         }
 

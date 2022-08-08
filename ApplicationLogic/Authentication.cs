@@ -69,6 +69,7 @@ namespace AuthenticationWithClie.ApplicationLogic
 
             while (true)
             {
+                Console.WriteLine();
                 Console.Write("Please enter user's email : ");
                 string email = Console.ReadLine();
 

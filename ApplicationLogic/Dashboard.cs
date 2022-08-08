@@ -14,15 +14,16 @@ namespace AuthenticationWithClie.ApplicationLogic
     {
         public static void AdminPanel()
         {
+            BlogRepository blogRepository = new BlogRepository();
             UserRepository userRepository = new UserRepository();
             while (true)
             {
 
                 Console.WriteLine($"COMMANDS : /add-user   /update-user   /reports   /all-reports   /add-admin   " +
-                    $"/show-admins   /update-info   /remove-admin   /blog-status   /show-users  /show-blogs   /logout");
+                    $"/show-admins   /update-info   /remove-admin   /blog-status   /show-users  /show-blogs  /delete-blogs  /logout");
 
                 Console.WriteLine();
-                Console.Write("enter command: ");
+                Console.Write("Enter command: ");
                 string command = Console.ReadLine();
                 Console.WriteLine();
                 if (command == "/add-user")
@@ -31,7 +32,7 @@ namespace AuthenticationWithClie.ApplicationLogic
                 }
                 else if (command == "/update-user")
                 {
-
+                    
                 }
                 else if (command == "/remove-user")
                 {
@@ -47,7 +48,6 @@ namespace AuthenticationWithClie.ApplicationLogic
                     {
                         Console.WriteLine("You can't delete this user, because this email is not in system or it is admin's email.");
                     }
-
                 }
                 else if (command == "/reports")
                 {
@@ -80,7 +80,6 @@ namespace AuthenticationWithClie.ApplicationLogic
                     {
                         Console.WriteLine("Enter email correctly.");
                     }
-
                 }
                 else if (command == "/show-admins")
                 {
@@ -102,33 +101,50 @@ namespace AuthenticationWithClie.ApplicationLogic
                         Console.WriteLine($"{user.FirstName} {user.LastName} deleted.");
                     }
                 }
-
                 else if (command == "/show-users")
                 {
                     UserRepository.ShowUsers();
                 }
-                else if (command == "/show-blogs")
+                else if (command == "/status-blogs")
                 {
-                    BlogRepository.ShowBlogs();
-                    Console.WriteLine("tesdiq ya inkar etmek istediyin blogun id-ni yaz");
-                    int id = int.Parse(Console.ReadLine());
-                    Console.WriteLine("Choose Approve ol Reject");
-                    Blog blog1 = BlogRepository.GetBlogbyId(id);
-                    string command1 = Console.ReadLine();
+                    blogRepository.ShowBlogs();
+                    Console.Write("Which id do you want to Approve or Reject? ");
+                    while (true)
+                    {
+                        try
+                        {
+                            int id = int.Parse(Console.ReadLine());
+                            Console.Write("Choose Approve ol Reject : ");
+                            Blog blog = blogRepository.GetBlogbyId(id);
+                            string command1 = Console.ReadLine();
 
-                    if (command1 == "Approve")
-                    {
-                        blog1.blogStatus = BlogStatus.Approved;
-                        Console.WriteLine("status approved");
+                            if (command1 == "Approve")
+                            {
+                                blog.blogStatus = BlogStatus.Approved;
+                                Console.WriteLine("Status approved. ");
+                                break;
+                            }
+                            else if (command1 == "Reject")
+                            {
+                                blog.blogStatus = BlogStatus.Rejected;
+                                Console.WriteLine("Status rejected. ");
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Wrong command. ");
+                            }
+                        }
+                        catch 
+                        {
+                            Console.WriteLine("Write only numbers for id. ");
+                        }
                     }
-                    else if (command1 == "Reject")
-                    {
-                        blog1.blogStatus = BlogStatus.Rejected;
-                    }
-                    else
-                    {
-                        Console.WriteLine("not command.");
-                    }
+
+                }
+                else if (command == "/delete-blogs")
+                {
+                    blogRepository.DeleteBlogs();
                 }
                 else if (command == "/logout")
                 {
@@ -139,7 +155,9 @@ namespace AuthenticationWithClie.ApplicationLogic
                 {
                     Console.WriteLine("Command not found");
                 }
-                Console.WriteLine("if you want return main menu, enter:  /log-out");
+                Console.WriteLine();
+                Console.WriteLine("If you want return main menu, enter:  /log-out");
+                Console.WriteLine();
             }
         }
     }
@@ -152,7 +170,7 @@ namespace AuthenticationWithClie.ApplicationLogic
             while (true)
             {
                 Console.WriteLine($"/update-info  /report-user  /report  /write-blog  /my-blogs  /logout");
-                Console.Write("Enter command");
+                Console.Write("Enter command : ");
                 string command = Console.ReadLine();
                 if (command == "/update-info")
                 {
@@ -199,7 +217,7 @@ namespace AuthenticationWithClie.ApplicationLogic
                 }
                 else if (command == "/my-blogs")
                 {
-                    BlogRepository.ShowBlogs();
+                    blogRepository.ShowBlogs();
                 }
                 else
                 {
