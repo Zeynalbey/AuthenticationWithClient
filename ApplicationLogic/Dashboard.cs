@@ -18,9 +18,11 @@ namespace AuthenticationWithClie.ApplicationLogic
             UserRepository userRepository = new UserRepository();
             while (true)
             {
-
-                Console.WriteLine($"COMMANDS : /add-user   /update-user   /reports   /all-reports   /add-admin   " +
-                    $"/show-admins   /update-info   /remove-admin   /blog-status   /show-users  /show-blogs  /delete-blogs  /logout");
+                Console.WriteLine();
+                Console.WriteLine($"COMMANDS :  /update-info  /add-user  /show-users  /update-user  /remove-user" +
+                    $"   /add-admin  /show-admins  /remove-admin  " +
+                    $"   /reports   /all-reports" +
+                    $"   /status-blogs  /delete-blog  /delete-all-blogs  /logout");
 
                 Console.WriteLine();
                 Console.Write("Enter command: ");
@@ -32,7 +34,10 @@ namespace AuthenticationWithClie.ApplicationLogic
                 }
                 else if (command == "/update-user")
                 {
-                    
+                    Console.Write("Enter id number which user do you want update : ");
+                    int id = int.Parse(Console.ReadLine());
+                    userRepository.UpdateUserbyId(id);
+                   
                 }
                 else if (command == "/remove-user")
                 {
@@ -64,7 +69,7 @@ namespace AuthenticationWithClie.ApplicationLogic
                         Report report = ReportRepository.Reports[i];
                         Console.WriteLine($"{i + 1}. (report ID : {report.Id}) User ({report.Sender.Email}) report {report.Target.Email} Date : {report.Sent}\n{report.Text}");
                     }
-                }
+                }                  //
                 else if (command == "/add-admin")
                 {
                     Console.Write("Enter user's email which you want create new admin:");
@@ -105,10 +110,10 @@ namespace AuthenticationWithClie.ApplicationLogic
                 {
                     UserRepository.ShowUsers();
                 }
-                else if (command == "/status-blogs")
+                else if (command == "/status-blog")
                 {
                     blogRepository.ShowBlogs();
-                    Console.Write("Which id do you want to Approve or Reject? ");
+                    Console.Write("Which id do you want to Approve or Reject : ");
                     while (true)
                     {
                         try
@@ -142,9 +147,13 @@ namespace AuthenticationWithClie.ApplicationLogic
                     }
 
                 }
-                else if (command == "/delete-blogs")
+                else if (command == "/delete-blog")
                 {
                     blogRepository.DeleteBlogs();
+                }
+                else if (command == "delete-all-blogs")
+                {
+                    blogRepository.DeleteAllBlog();
                 }
                 else if (command == "/logout")
                 {

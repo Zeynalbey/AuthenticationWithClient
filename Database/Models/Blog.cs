@@ -9,21 +9,24 @@ using System.Threading.Tasks;
 
 namespace AuthenticationWithClie.Database.Models
 {
-    public class Blog : Entity<int>
+    public class Blog
     {
-        public int IdCounter = 1;
+        public int Id { get; set; }
+        public static int IdCounter { get; set; } = 1;
         public User Owner { get; set; }
         public string Content { get; set; }
         public  DateTime BlogDateTime { get; set; }
         public BlogStatus blogStatus { get; set; }
 
-        public Blog(User owner, string content, int? id = null)
+        public Blog(User owner, string content)
         {
+            Id = IdCounter++;
             Owner = owner;
             Content = content;
             BlogDateTime = DateTime.Now;
             blogStatus = BlogStatus.Pending;
-            Id = IdCounter++;
+
+            
         }
 
 

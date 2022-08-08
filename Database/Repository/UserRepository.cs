@@ -108,6 +108,18 @@ namespace AuthenticationWithClie.Database.Repository
             }
         }
 
+        public void UpdateUserbyId(int id)
+        {
+            foreach (User user in DbContext)
+            {
+                if (user.Id == id)
+                {
+                    IsValidInfo();
+                }
+            }
+
+        }
+
         private static void IsValidInfo()
         {
             Console.Write("Write new name: ");
@@ -126,6 +138,7 @@ namespace AuthenticationWithClie.Database.Repository
                 Authentication.Account.UserGender = newUserGender;
                 Console.WriteLine($"Refreshed info: {newFirstName} {newLastName} {newUserGender}");
             }
+            
         }
 
         public static void ShowAdmins()

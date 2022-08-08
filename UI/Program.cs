@@ -35,7 +35,7 @@ namespace AuthenticationWithClie.UI
                 }
                 else
                 {
-                    Console.WriteLine("Command not found!");
+                    Console.WriteLine("Command not found! ");
                 }
 
 

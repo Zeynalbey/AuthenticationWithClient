@@ -31,7 +31,7 @@ namespace AuthenticationWithClie.Database.Repository
         {
             foreach (Blog blog in Blogs)
             {
-                if (blog.Id == 1)
+                if (blog.Id == id)
                 {
                     return blog;
                 }
@@ -49,13 +49,15 @@ namespace AuthenticationWithClie.Database.Repository
                 {
                     Blogs.Remove(blog);
                     Console.WriteLine("Blog deleted. ");
+                    break;
                 }
-                else
-                {
-                    Console.WriteLine("This blog not found. ");
-                }
+                Console.WriteLine($"{id} blog is not in system. ");
             }
+        }
 
+        public void DeleteAllBlog()
+        {
+            Blogs.Clear();
         }
     }
 }
