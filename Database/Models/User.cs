@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AuthenticationWithClie.Database.Models;
 using AuthenticationWithClie.Database.Common;
+using AuthenticationWithClie.Database.Models.Enums;
 
 namespace AuthenticationWithClie.Database.Models
 {
@@ -15,11 +16,14 @@ namespace AuthenticationWithClie.Database.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public string UserGender { get; set; }
+
         public List<Report> Reportinbox { get; set; } = new List<Report>();
-        public User(string firstName, string lastName, string email, string password, int? id=null)
+        public User(string firstName, string lastName, string userGender, string email,  string password, int? id=null)
         {
             FirstName = firstName;
             LastName = lastName;
+            UserGender = userGender;
             Email = email;
             Password = password;
 
@@ -35,7 +39,7 @@ namespace AuthenticationWithClie.Database.Models
 
         public virtual string GetInfo()
         {
-            return $"User name: {FirstName}, Lastname: {LastName}, Email: {Email}, Password: {Password}, Date: {CreatedAt}";
+            return $"User name: {FirstName}, Lastname: {LastName}, Gender: {UserGender} Email: {Email}, Password: {Password}, Date: {CreatedAt}";
         }
     }
 }

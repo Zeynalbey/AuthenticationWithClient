@@ -8,13 +8,12 @@ namespace AuthenticationWithClie.UI
     {
         static void Main(string[] args)
         {
-            
-
             Console.WriteLine("Commands :");
             Console.WriteLine("/register");
             Console.WriteLine("/login");
             Console.WriteLine("/logout");
             Console.WriteLine("/exit");
+            Console.WriteLine("_________________________________________________________");
 
             while (true)
             {

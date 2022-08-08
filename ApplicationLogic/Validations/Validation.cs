@@ -25,6 +25,15 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations
 
             return false;
         }
+        public static bool IsValidGender(string text)
+        {
+            if (text is "male" or "female")
+            {
+                return true;
+            }
+            Console.WriteLine("Gender is not correct!");
+            return false;
+        }
 
     }
 }

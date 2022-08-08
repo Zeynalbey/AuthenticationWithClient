@@ -17,7 +17,8 @@ namespace AuthenticationWithClie.ApplicationLogic
             UserRepository userRepository = new UserRepository();
             while (true)
             {
-                Console.WriteLine($"/add-user   /update-user   /reports   /all-reports   /add-admin   " +
+
+                Console.WriteLine($"COMMANDS : /add-user   /update-user   /reports   /all-reports   /add-admin   " +
                     $"/show-admins   /update-info   /remove-admin   /blog-status   /show-users  /show-blogs   /logout");
 
                 Console.WriteLine();
@@ -72,7 +73,7 @@ namespace AuthenticationWithClie.ApplicationLogic
                     if (!(user is null && user is Admin))
                     {
                         userRepository.Delete(user);
-                        Admin admin = new Admin(user.FirstName, user.LastName, user.Email, user.Password, user.Id);
+                        Admin admin = new Admin(user.FirstName, user.LastName, user.Email, user.UserGender, user.Password, user.Id);
                         UserRepository.Add(admin);
                     }
                     else
@@ -101,10 +102,7 @@ namespace AuthenticationWithClie.ApplicationLogic
                         Console.WriteLine($"{user.FirstName} {user.LastName} deleted.");
                     }
                 }
-                else if (command == "/blog-status")
-                {
 
-                }
                 else if (command == "/show-users")
                 {
                     UserRepository.ShowUsers();
@@ -153,17 +151,12 @@ namespace AuthenticationWithClie.ApplicationLogic
             BlogRepository blogRepository = new BlogRepository();
             while (true)
             {
-                Console.WriteLine();
-                Console.WriteLine("/update-info" + "  " + "/show-users" + "  " + "/report-user" + "  " + "/report" + "  " + "/write-blog" + "  " + "/show-blogs" + "  " + "logout");
-                Console.WriteLine("Enter command");
+                Console.WriteLine($"/update-info  /report-user  /report  /write-blog  /my-blogs  /logout");
+                Console.Write("Enter command");
                 string command = Console.ReadLine();
                 if (command == "/update-info")
                 {
                     userRepository.UpdateInfo();
-                }
-                else if (command == "/show-users")
-                {
-                    UserRepository.ShowUsers();
                 }
                 else if (command == "/report-user")
                 {
@@ -204,7 +197,7 @@ namespace AuthenticationWithClie.ApplicationLogic
                     blogRepository.AddBlog(Authentication.Account,content);
                     Console.WriteLine("blog addded");
                 }
-                else if (command == "/show-blogs")
+                else if (command == "/my-blogs")
                 {
                     BlogRepository.ShowBlogs();
                 }

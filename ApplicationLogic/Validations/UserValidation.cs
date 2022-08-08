@@ -19,7 +19,7 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations
                 return true;
             }
 
-            Console.WriteLine("Entered name is not correct, be sure that first letter is uppercase, length is 3-30 and only letters are in the name! ");
+            Console.WriteLine("Entered name is not correct! ");
 
 
             return false;
@@ -34,7 +34,7 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations
                 return true;
             }
 
-            Console.WriteLine("Entered lastname is not correct, be sure that first letter is uppercase, length is 3-30 and only letters are in the lastname! ");
+            Console.WriteLine("Entered lastname is not correct! ");
 
             return false;
         }
@@ -60,7 +60,7 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations
                 return true;
             }
 
-            Console.WriteLine("Password is not match");
+            Console.WriteLine("Passwords are not match");
 
             return false;
 
@@ -75,7 +75,7 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations
                 return true;
             }
 
-            Console.WriteLine("Password is not correct.");
+            Console.WriteLine("Entered password is not correct.");
 
             return false;
         }

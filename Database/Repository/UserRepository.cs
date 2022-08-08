@@ -30,22 +30,22 @@ namespace AuthenticationWithClie.Database.Repository
 
         private static void SeedUsers()
         {
-            DbContext.Add(new Admin("Mahmood", "Garibov", "qaribovmahmud@gmail.com", "123321"));
-            DbContext.Add(new Admin("Eshqin", "Mahmudov", "eshqin@gmail.com", "123321"));
-            DbContext.Add(new User("Yehya", "Mahmudov", "yehya@gmail.com", "123321"));
-            DbContext.Add(new User("Said", "Mikayilli", "said@gmail.com", "123321"));
+            DbContext.Add(new Admin("Mahmood", "Garibov","male","qaribovmahmud@gmail.com", "123321"));
+            DbContext.Add(new Admin("Eshqin", "Mahmudov","male", "eshqin@gmail.com", "123321"));
+            DbContext.Add(new User("Inci", "Mikayilli", "female", "yehya@gmail.com", "123321"));
+            DbContext.Add(new User("Said", "Mikayilli", "male", "said@gmail.com", "123321"));
         }
 
-        public User AddUser(string firstName, string lastName, string email, string password)
+        public User AddUser(string firstName, string lastName, string email, string userGender, string password)
         {
-            User user = new User(firstName, lastName, email, password, IdCounter);
+            User user = new User(firstName, lastName, email, userGender, password, IdCounter);
             DbContext.Add(user);
             return user;
         }
 
-        public User AddUser(string firstName, string lastName, string email, string password, int id)
+        public User AddUser(string firstName, string lastName, string email, string userGender, string password, int id)
         {
-            User user = new User(firstName, lastName, email, password, id);
+            User user = new User(firstName, lastName, email, password, userGender, id);
             DbContext.Add(user);
             return user;
         }
@@ -99,14 +99,15 @@ namespace AuthenticationWithClie.Database.Repository
             Console.WriteLine("This email is not registered.");
             return null;
         }
+
         public void UpdateInfo()
         {
             if (Authentication.IsAuthorized)
             {
                 IsValidInfo();
             }
-            
         }
+
         private static void IsValidInfo()
         {
             Console.Write("Write new name: ");
@@ -122,7 +123,6 @@ namespace AuthenticationWithClie.Database.Repository
                 Console.WriteLine($"New name and lastname is: {newFirstName} {newLastName}");
             }
         }
-
 
         public static void ShowAdmins()
         {
