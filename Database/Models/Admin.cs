@@ -10,22 +10,14 @@ namespace AuthenticationWithClie.Database.Models
     public sealed class Admin : User
     {
         public Admin(string firstName, string lastName, string email, string password, int id)
-            :base(firstName, lastName, email, password, id)
-        {
-           
-
-        }
+            :base(firstName, lastName, email, password, id){}
 
         public Admin(string firstName, string lastName, string email, string password)
-            : base(firstName, lastName, email, password)
-        {
-
-
-        }
+            : base(firstName, lastName, email, password){}
 
         public override string GetInfo()
         {
-            return $"{FirstName} {LastName} {Email}";
+            return $"Admin name: {FirstName}, Lastname: {LastName}, Email: {Email}, Password: {Password}, Date: {CreatedAt}";
         }
     }
 }

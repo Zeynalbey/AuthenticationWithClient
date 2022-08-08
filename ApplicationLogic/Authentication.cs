@@ -56,51 +56,40 @@ namespace AuthenticationWithClie.ApplicationLogic
         public static void Login()
         {
             UserRepository userRepository = new UserRepository();
-            Console.Write("Please enter user's email : ");
-            string email = Console.ReadLine();
 
-            Console.Write("Please enter user's password : ");
-            string password = Console.ReadLine();
-
-            if (UserRepository.IsUserExistByEmailAndPassword(email, password) && !IsAuthorized)
+            while (true)
             {
-                User user = UserRepository.GetUserByEmail(email);
-                if (user is Admin)
-                {
-                    Console.WriteLine($"Admin successfully authenticated : {user.GetInfo()}");
-                    Account = user;
-                    IsAuthorized = true;
-                    Dashboard.AdminPanel();
+                Console.Write("Please enter user's email : ");
+                string email = Console.ReadLine();
 
-                    
-                }
-                else if(user is User)
+                Console.Write("Please enter user's password : ");
+                string password = Console.ReadLine();
+
+                if (UserRepository.IsUserExistByEmailAndPassword(email, password) && !IsAuthorized)
                 {
-                    Console.WriteLine($"User successfully authenticated : {user.GetInfo()}");
-                    Account = user;
-                    IsAuthorized = true;
-                    Dashboard.UserPanel();
-                }
-                else
-                {
-                    Console.WriteLine("Email or password is not correct! ");
+                    User user = UserRepository.GetUserByEmail(email);
+                    if (user is Admin)
+                    {
+                        Console.WriteLine($"Admin successfully authenticated : {user.GetInfo()}");
+                        Account = user;
+                        IsAuthorized = true;
+                        Dashboard.AdminPanel();
+                    }
+                    else if (user is User)
+                    {
+                        Console.WriteLine($"User successfully authenticated : {user.GetInfo()}");
+                        Account = user;
+                        IsAuthorized = true;
+                        Dashboard.UserPanel();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Email or password is not correct! ");
+                    }
                 }
             }
         }
-        public static void Logout()
-        {
-            if (IsAuthorized)
-            {
-                Account = null;
-                IsAuthorized = false;
-                Console.WriteLine("Logged out");
-            }
-            else
-            {
-                Console.WriteLine("You must login first to log out.");
-            }
-
-        }
+        
 
 
     }

@@ -1,4 +1,5 @@
 ﻿using AuthenticationWithClie.ApplicationLogic;
+using AuthenticationWithClie.ApplicationLogic.Validations;
 using AuthenticationWithClie.Database.Models;
 using AuthenticationWithClie.Database.Models.Enums;
 using System;
@@ -11,11 +12,6 @@ namespace AuthenticationWithClie.Database.Repository
 {
     public class UserRepository : Repository<User,int>
     {
-
-        public static List<Report> Reports { get; set; } = new List<Report>();
-        public static List<Blog> BlogList { get; set; } = new List<Blog>();
-
-
         private static int _idCounter;
 
         public static int IdCounter
@@ -54,7 +50,6 @@ namespace AuthenticationWithClie.Database.Repository
             return user;
         }
 
-
         public bool IsUserExistsByEmail(string email)
         {
             foreach (User user in DbContext)
@@ -64,11 +59,8 @@ namespace AuthenticationWithClie.Database.Repository
                     return true;
                 }
             }
-
             return false;
         }
-
-
 
         public User GetUserByEmailAndPassword(string email, string password)
         {
@@ -79,7 +71,6 @@ namespace AuthenticationWithClie.Database.Repository
                     return user;
                 }
             }
-
             return null;
         }
 
@@ -93,7 +84,7 @@ namespace AuthenticationWithClie.Database.Repository
                 }
             }
             Console.WriteLine("Email or password is not correct.");
-            return false; ;
+            return false; 
         }
 
         public static User GetUserByEmail(string email)
@@ -105,33 +96,33 @@ namespace AuthenticationWithClie.Database.Repository
                     return user;
                 }
             }
-            Console.WriteLine("bele bir istifadeci yoxdur.");
+            Console.WriteLine("This email is not registered.");
             return null;
         }
-
-
-
-        public static void UpdateAdmin()
+        public void UpdateInfo()
         {
-            Console.WriteLine("adminin emailini yazin.");
-            string emailUpdateAdmin = Console.ReadLine();
-            User user1 = UserRepository.GetUserByEmail(emailUpdateAdmin);
-            if (user1 is Admin)
+            if (Authentication.IsAuthorized)
             {
-                Console.Write("Write new name: ");
-                string newFirstName = Console.ReadLine();
-                Console.Write("Write new name: ");
-                string newLastName = Console.ReadLine();
-                user1.FirstName = newFirstName;
-                user1.LastName = newLastName;
-                Console.WriteLine($"{user1.FirstName} {user1.LastName} changed to {newFirstName} {newLastName}");
+                IsValidInfo();
             }
-            else
-            {
-                Console.WriteLine("email tapilmadi");
-            }
-
+            
         }
+        private static void IsValidInfo()
+        {
+            Console.Write("Write new name: ");
+            string newFirstName = Console.ReadLine();
+            Console.Write("Write new lastname: ");
+            string newLastName = Console.ReadLine();
+
+            if (UserValidation.IsValidFirstName(newFirstName) &
+            UserValidation.IsValidLastName(newLastName))
+            {
+                Authentication.Account.FirstName = newFirstName;
+                Authentication.Account.LastName = newLastName;
+                Console.WriteLine($"New name and lastname is: {newFirstName} {newLastName}");
+            }
+        }
+
 
         public static void ShowAdmins()
         {
@@ -139,7 +130,7 @@ namespace AuthenticationWithClie.Database.Repository
             {
                 if (user is Admin)
                 {
-                    Console.WriteLine(user.FirstName + " " + user.LastName);
+                    Console.WriteLine($"Name: {user.FirstName}, Lastname: {user.LastName}, Email: {user.Email}  Date: {user.CreatedAt}");
                 }          
             }
         }
@@ -150,46 +141,14 @@ namespace AuthenticationWithClie.Database.Repository
             {
                 if (user is not Admin)
                 {
-                    Console.WriteLine(user.FirstName + " " + user.LastName);
+                    Console.WriteLine($"Name: {user.FirstName}, Lastname: {user.LastName}, Email: {user.Email}  Date: {user.CreatedAt}");
                 }
             }
         }
 
 
-        public static void AddReport(User sender, string reason, User target)
-        {
-            Report report = new Report(sender, reason, target);
-            Reports.Add(report);
-            target.Reportinbox.Add(report);
-        }
-
-        public  Blog AddBlog(User owner,string content)
-        {
-            Blog blog = new Blog(owner,content);
-            BlogList.Add(blog);
-            return blog;
-        }
        
-        public static void ShowBlogs()
-        {
-            foreach (Blog blog in BlogList)
-            {
-                
-                Console.WriteLine($"{blog.Id} {Authentication.Account.FirstName} {blog.Content} {blog.BlogDateTime} {blog.blogStatus}");
-            }
-        }
 
-        public static Blog GetBlogbyId(int id)
-        {
-            foreach (Blog blog in BlogList)
-            {
-                if (blog.Id == 1)
-                {
-                    return blog;
-                }
- 
-            }
-            return null;
-        }
+        
     }
 }

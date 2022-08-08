@@ -18,7 +18,7 @@ namespace AuthenticationWithClie.ApplicationLogic
             while (true)
             {
                 Console.WriteLine($"/add-user   /update-user   /reports   /all-reports   /add-admin   " +
-                    $"/show-admins   /update-admin   /remove-admin   /blog-status   /show-users  /show-blogs   /logout");
+                    $"/show-admins   /update-info   /remove-admin   /blog-status   /show-users  /show-blogs   /logout");
 
                 Console.WriteLine();
                 Console.Write("enter command: ");
@@ -30,23 +30,7 @@ namespace AuthenticationWithClie.ApplicationLogic
                 }
                 else if (command == "/update-user")
                 {
-                    Console.WriteLine("Write user's email which you want change.");
-                    string email = Console.ReadLine();
-                    User user1 = UserRepository.GetUserByEmail(email);
-                    if (!(user1 == null && user1 is Admin))
-                    {
-                        Console.Write("Write new name:");
-                        string user1Name = Console.ReadLine();
-                        Console.Write("Write new lastname:");
-                        string user1LastName = Console.ReadLine();
-                        user1.FirstName = user1Name;
-                        user1.LastName = user1LastName;
-                        Console.WriteLine($"{user1.FirstName} {user1.LastName} changed to {user1Name} {user1LastName}");
-                    }
-                    else
-                    {
-                        Console.WriteLine("You can't change this email.");
-                    }
+
                 }
                 else if (command == "/remove-user")
                 {
@@ -55,7 +39,6 @@ namespace AuthenticationWithClie.ApplicationLogic
                     User user1 = UserRepository.GetUserByEmail(removeEmail);
                     if (!(user1 is null && user1 is Admin))
                     {
-
                         userRepository.Delete(user1);
                         Console.WriteLine($"{user1.GetInfo()} deleted");
                     }
@@ -75,9 +58,9 @@ namespace AuthenticationWithClie.ApplicationLogic
                 }
                 else if (command == "/all-reports")
                 {
-                    for (int i = 0; i < UserRepository.Reports.Count; i++)
+                    for (int i = 0; i < ReportRepository.Reports.Count; i++)
                     {
-                        Report report = UserRepository.Reports[i];
+                        Report report = ReportRepository.Reports[i];
                         Console.WriteLine($"{i + 1}. (report ID : {report.Id}) User ({report.Sender.Email}) report {report.Target.Email} Date : {report.Sent}\n{report.Text}");
                     }
                 }
@@ -102,9 +85,10 @@ namespace AuthenticationWithClie.ApplicationLogic
                 {
                     UserRepository.ShowAdmins();
                 }
-                else if (command == "/update-admin")
+                else if (command == "/update-info")
                 {
-                    UserRepository.UpdateAdmin();
+
+                    userRepository.UpdateInfo();
                 }
                 else if (command == "/remove-admin")
                 {
@@ -127,19 +111,19 @@ namespace AuthenticationWithClie.ApplicationLogic
                 }
                 else if (command == "/show-blogs")
                 {
-                    UserRepository.ShowBlogs();
+                    BlogRepository.ShowBlogs();
                     Console.WriteLine("tesdiq ya inkar etmek istediyin blogun id-ni yaz");
                     int id = int.Parse(Console.ReadLine());
                     Console.WriteLine("Choose Approve ol Reject");
-                    Blog blog1 = UserRepository.GetBlogbyId(id);
+                    Blog blog1 = BlogRepository.GetBlogbyId(id);
                     string command1 = Console.ReadLine();
 
-                    if (command1 == "Approved")
+                    if (command1 == "Approve")
                     {
                         blog1.blogStatus = BlogStatus.Approved;
                         Console.WriteLine("status approved");
                     }
-                    else if (command1 == "Rejected")
+                    else if (command1 == "Reject")
                     {
                         blog1.blogStatus = BlogStatus.Rejected;
                     }
@@ -165,30 +149,17 @@ namespace AuthenticationWithClie.ApplicationLogic
     {
         public static void UserPanel()
         {
-            UserRepository userRepository1 = new UserRepository();
+            UserRepository userRepository = new UserRepository();
+            BlogRepository blogRepository = new BlogRepository();
             while (true)
             {
+                Console.WriteLine();
                 Console.WriteLine("/update-info" + "  " + "/show-users" + "  " + "/report-user" + "  " + "/report" + "  " + "/write-blog" + "  " + "/show-blogs" + "  " + "logout");
                 Console.WriteLine("Enter command");
                 string command = Console.ReadLine();
                 if (command == "/update-info")
                 {
-                    Console.Write("Please enter your password : ");
-                    string password = Console.ReadLine();
-                    if (Authentication.Account.Password == password)
-                    {
-                        Console.Write("Write new name: ");
-                        string newName = Console.ReadLine();
-                        Console.Write("Write new lastname: ");
-                        string newLastName = Console.ReadLine();
-                        Authentication.Account.FirstName = newName;
-                        Authentication.Account.LastName = newLastName;
-                        Console.WriteLine($"Name and lastname changed to: {newName} {newLastName}.");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Enter email correctly.");
-                    }
+                    userRepository.UpdateInfo();
                 }
                 else if (command == "/show-users")
                 {
@@ -200,12 +171,11 @@ namespace AuthenticationWithClie.ApplicationLogic
                     string email = Console.ReadLine();
                     Console.Write("Please enter reason of report : ");
                     string reason = Console.ReadLine();
-                    UserRepository userRepository = new UserRepository();
 
                     if (email != Authentication.Account.Email && Validation.IsLengthBetween(reason, 10, 50) && userRepository.IsUserExistsByEmail(email))
                     {
                         User target = UserRepository.GetUserByEmail(email);
-                        UserRepository.AddReport(Authentication.Account, reason, target);
+                        ReportRepository.AddReport(Authentication.Account, reason, target);
                         Console.WriteLine("User Reported");
                     }
                     else
@@ -231,12 +201,12 @@ namespace AuthenticationWithClie.ApplicationLogic
                     Console.Write("Please enter your blog : ");
                     string content = Console.ReadLine();
 
-                    userRepository1.AddBlog(Authentication.Account,content);
+                    blogRepository.AddBlog(Authentication.Account,content);
                     Console.WriteLine("blog addded");
                 }
                 else if (command == "/show-blogs")
                 {
-                    UserRepository.ShowBlogs();
+                    BlogRepository.ShowBlogs();
                 }
                 else
                 {

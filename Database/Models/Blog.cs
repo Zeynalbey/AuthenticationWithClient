@@ -22,7 +22,7 @@ namespace AuthenticationWithClie.Database.Models
             Owner = owner;
             Content = content;
             BlogDateTime = DateTime.Now;
-            blogStatus = BlogStatus.Sended;
+            blogStatus = BlogStatus.Pending;
             Id = IdCounter++;
         }
 

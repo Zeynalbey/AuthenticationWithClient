@@ -30,13 +30,9 @@ namespace AuthenticationWithClie.UI
                 {
                     Authentication.Login();
                 }
-                else if (command == "/exit")
-                {
-                    break;
-                }
                 else if (command == "/logout")
                 {
-                    Authentication.Logout();
+                    break;
                 }
                 else
                 {

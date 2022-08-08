@@ -9,6 +9,13 @@ namespace AuthenticationWithClie.Database.Repository
 {
     public class ReportRepository : Repository<Report, Guid>
     {
-        
+        public static List<Report> Reports { get; set; } = new List<Report>();
+
+        public static void AddReport(User sender, string reason, User target)
+        {
+            Report report = new Report(sender, reason, target);
+            Reports.Add(report);
+            target.Reportinbox.Add(report);
+        }
     }
 }

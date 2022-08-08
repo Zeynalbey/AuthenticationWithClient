@@ -8,11 +8,8 @@ namespace AuthenticationWithClie.Database.Models.Enums
 {
     public enum BlogStatus
     {
-        Sended = 1,
+        Pending = 1,
         Approved = 2,
         Rejected = 3
-
-    }
-
-    
+    }  
 }

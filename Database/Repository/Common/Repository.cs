@@ -52,11 +52,9 @@ namespace AuthenticationWithClie.Database.Repository
         public TEntity Update(TId id, TEntity newEntry)
         {
             TEntity entry = GetById(id);
-
             newEntry.Id = entry.Id;
             newEntry.CreatedAt = entry.CreatedAt;
             entry = newEntry;
-
             return entry;
         }
 

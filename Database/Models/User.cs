@@ -33,10 +33,9 @@ namespace AuthenticationWithClie.Database.Models
             }
         }
 
-       
         public virtual string GetInfo()
         {
-            return $"{FirstName} {LastName}";
+            return $"User name: {FirstName}, Lastname: {LastName}, Email: {Email}, Password: {Password}, Date: {CreatedAt}";
         }
     }
 }
