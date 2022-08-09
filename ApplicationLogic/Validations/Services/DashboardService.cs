@@ -121,7 +121,26 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
             }
         }
 
+        public void DeleteOwnBlog()
+        {
+            bool isTheBlogInBlogList = false;
+            foreach (Blog blog in BlogRepository.Blogs)
+            {
+                if (Authentication.Account == blog.Owner)
+                {
+                    isTheBlogInBlogList = true;
+                    BlogRepository.Blogs.Remove(blog);
+                    Console.WriteLine("Your blog deleted. ");
 
+
+                }
+
+            }
+            if (!isTheBlogInBlogList)
+            {
+                Console.WriteLine("You have not any blogs. ");
+            }
+        }
 
 
 

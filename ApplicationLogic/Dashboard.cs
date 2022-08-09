@@ -28,13 +28,12 @@ namespace AuthenticationWithClie.ApplicationLogic
                 string command = Console.ReadLine();
                 Console.WriteLine();
 
-
                 if (command == "/show-users")
                 {
                     dashboardService.ShowUsers();
                 }
 
-                else if (command == "/show-admins" )
+                else if (command == "/show-admins")
                 {
                     dashboardService.ShowAdmins();
                 }
@@ -55,17 +54,14 @@ namespace AuthenticationWithClie.ApplicationLogic
 
                 else if (command == "/logout")
                 {
-
+                    Authentication.Account = null;
                     Authentication.IsAuthorized = false;
-                  
                     break;
                 }
                 else
                 {
                     Console.WriteLine("Command not found");
                 }
-                Console.WriteLine();
-                Console.WriteLine("If you want return main menu, enter:  /log-out");
                 Console.WriteLine();
             }
         }
@@ -98,10 +94,9 @@ namespace AuthenticationWithClie.ApplicationLogic
                 {
                     dashboardService.AddBlog();
                 }
-
                 else if (command == "/delete-blog")
                 {
-
+                    dashboardService.DeleteOwnBlog();
                 }
                 else if (command == "/logout")
                 {
