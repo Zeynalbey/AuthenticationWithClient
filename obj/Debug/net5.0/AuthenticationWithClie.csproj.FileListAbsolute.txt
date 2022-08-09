@@ -1,0 +1,16 @@
+C:\Users\DELL\Desktop\New folder (5)\AuthenticationWithClient\bin\Debug\net5.0\AuthenticationWithClie.exe
+C:\Users\DELL\Desktop\New folder (5)\AuthenticationWithClient\bin\Debug\net5.0\AuthenticationWithClie.deps.json
+C:\Users\DELL\Desktop\New folder (5)\AuthenticationWithClient\bin\Debug\net5.0\AuthenticationWithClie.runtimeconfig.json
+C:\Users\DELL\Desktop\New folder (5)\AuthenticationWithClient\bin\Debug\net5.0\AuthenticationWithClie.runtimeconfig.dev.json
+C:\Users\DELL\Desktop\New folder (5)\AuthenticationWithClient\bin\Debug\net5.0\AuthenticationWithClie.dll
+C:\Users\DELL\Desktop\New folder (5)\AuthenticationWithClient\bin\Debug\net5.0\ref\AuthenticationWithClie.dll
+C:\Users\DELL\Desktop\New folder (5)\AuthenticationWithClient\bin\Debug\net5.0\AuthenticationWithClie.pdb
+C:\Users\DELL\Desktop\New folder (5)\AuthenticationWithClient\obj\Debug\net5.0\AuthenticationWithClie.csproj.AssemblyReference.cache
+C:\Users\DELL\Desktop\New folder (5)\AuthenticationWithClient\obj\Debug\net5.0\AuthenticationWithClie.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\DELL\Desktop\New folder (5)\AuthenticationWithClient\obj\Debug\net5.0\AuthenticationWithClie.AssemblyInfoInputs.cache
+C:\Users\DELL\Desktop\New folder (5)\AuthenticationWithClient\obj\Debug\net5.0\AuthenticationWithClie.AssemblyInfo.cs
+C:\Users\DELL\Desktop\New folder (5)\AuthenticationWithClient\obj\Debug\net5.0\AuthenticationWithClie.csproj.CoreCompileInputs.cache
+C:\Users\DELL\Desktop\New folder (5)\AuthenticationWithClient\obj\Debug\net5.0\AuthenticationWithClie.dll
+C:\Users\DELL\Desktop\New folder (5)\AuthenticationWithClient\obj\Debug\net5.0\ref\AuthenticationWithClie.dll
+C:\Users\DELL\Desktop\New folder (5)\AuthenticationWithClient\obj\Debug\net5.0\AuthenticationWithClie.pdb
+C:\Users\DELL\Desktop\New folder (5)\AuthenticationWithClient\obj\Debug\net5.0\AuthenticationWithClie.genruntimeconfig.cache

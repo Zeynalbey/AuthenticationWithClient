@@ -11,18 +11,23 @@ namespace AuthenticationWithClie.Database.Models
 {
     public class Blog
     {
+        //1. [<BlogCreateDate>] [<blogCode>] [<Title>] [<Content>] [<BlogStatus>]
         public int Id { get; set; }
         public static int IdCounter { get; set; } = 1;
         public User Owner { get; set; }
         public string Content { get; set; }
+        public string BlogCode { get; set; }
+        public string Title { get; set; }
         public  DateTime BlogDateTime { get; set; }
         public BlogStatus blogStatus { get; set; }
 
-        public Blog(User owner, string content)
+        public Blog(User owner, string content, string blogCode, string title)
         {
             Id = IdCounter++;
             Owner = owner;
             Content = content;
+            BlogCode = blogCode;
+            Title = title;
             BlogDateTime = DateTime.Now;
             blogStatus = BlogStatus.Pending;
 

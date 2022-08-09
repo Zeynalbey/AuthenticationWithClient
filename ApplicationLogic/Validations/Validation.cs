@@ -8,23 +8,6 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations
 {
     public static class Validation
     {
-        public static bool IsLengthBetween(string text, int start, int end)
-        {
-            return text.Length >= start && text.Length < end;
-        }
-
-        public static bool Contains(string text, char targetCharacter)
-        {
-            foreach (char character in text)
-            {
-                if (character == targetCharacter)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
         public static bool IsValidGender(string text)
         {
             if (text is "male" or "female")
@@ -33,6 +16,11 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations
             }
             Console.WriteLine("Gender is not correct!");
             return false;
+        }
+
+        public static bool IsLengthBetween(string text, int start, int end)
+        {
+            return text.Length >= start && text.Length < end;
         }
 
     }

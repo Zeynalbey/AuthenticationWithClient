@@ -27,7 +27,7 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations
 
         public static bool IsValidLastName(string lastName)
         {
-            Regex regex = new Regex(@"^(?=[A-Z]{1})([A-Za-z]{3,30})$");
+            Regex regex = new Regex(@"^(?=[A-Z]{1})([A-Za-z]{4,29})$");
 
             if (regex.IsMatch(lastName))
             {
@@ -41,7 +41,7 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations
 
         public static bool IsValidEmail(string email)
         {
-            Regex regex = new Regex(@"^[A-Za-z0-9]{10,30}@code\.edu\.az$");
+            Regex regex = new Regex(@"^[A-Za-z0-9]{10,20}@code\.edu\.az$");
 
             if (regex.IsMatch(email))
             {

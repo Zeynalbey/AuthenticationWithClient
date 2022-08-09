@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace AuthenticationWithClie.ApplicationLogic
 {
-    class Authentication  : Repository<User, int>
+    class Authentication : Repository<User, int>
     {
-       
+
         public static User Account { get; set; }
         public static bool IsAuthorized { get; set; } = false;
-        
+
         public static void Register()
         {
             UserRepository userRepository = new UserRepository();
@@ -46,10 +46,10 @@ namespace AuthenticationWithClie.ApplicationLogic
 
 
             if (
-                UserValidation.IsValidFirstName(firstName)&
+                UserValidation.IsValidFirstName(firstName) &
                 UserValidation.IsValidLastName(lastName) &
-                UserValidation.IsValidEmail(email)&
-                UserValidation.IsValidPassword(password)&
+                UserValidation.IsValidEmail(email) &
+                UserValidation.IsValidPassword(password) &
                 Validation.IsValidGender(gender))
             {
                 if (!UserValidation.IsUserExist(email))
@@ -58,7 +58,7 @@ namespace AuthenticationWithClie.ApplicationLogic
                     UserRepository.Add(user);
                     Console.WriteLine($"User added to system, details are : {user.GetInfo()}");
                 }
-                
+
             }
 
         }
@@ -67,42 +67,41 @@ namespace AuthenticationWithClie.ApplicationLogic
         {
             UserRepository userRepository = new UserRepository();
 
-            while (true)
+
+            Console.WriteLine();
+            Console.Write("Please enter user's email : ");
+            string email = Console.ReadLine();
+
+            Console.Write("Please enter user's password : ");
+            string password = Console.ReadLine();
+
+            if (UserRepository.IsUserExistByEmailAndPassword(email, password) && !IsAuthorized)
             {
-                Console.WriteLine();
-                Console.Write("Please enter user's email : ");
-                string email = Console.ReadLine();
-
-                Console.Write("Please enter user's password : ");
-                string password = Console.ReadLine();
-
-                if (UserRepository.IsUserExistByEmailAndPassword(email, password) && !IsAuthorized)
+                User user = UserRepository.GetUserByEmail(email);
+                if (user is Admin)
                 {
-                    User user = UserRepository.GetUserByEmail(email);
-                    if (user is Admin)
-                    {
-                        Console.WriteLine("_________________________________________________________");
-                        Console.WriteLine($"Admin successfully authenticated : {user.GetInfo()}");
-                        Account = user;
-                        IsAuthorized = true;
-                        Dashboard.AdminPanel();
-                    }
-                    else if (user is User)
-                    {
-                        Console.WriteLine("_________________________________________________________");
-                        Console.WriteLine($"User successfully authenticated : {user.GetInfo()}");
-                        Account = user;
-                        IsAuthorized = true;
-                        Dashboard.UserPanel();
-                    }
-                    else
-                    {
-                        Console.WriteLine("Email or password is not correct! ");
-                    }
+                    Console.WriteLine("_________________________________________________________");
+                    Console.WriteLine($"Welcome to your account, dear admin, {user.GetInfo()}");
+                    Account = user;
+                    IsAuthorized = true;
+                    Dashboard.AdminPanel();
+                }
+                else if (user is User)
+                {
+                    Console.WriteLine("_________________________________________________________");
+                    Console.WriteLine($"Wellcome to your account, {user.GetInfo()}");
+                    Account = user;
+                    IsAuthorized = true;
+                    Dashboard.UserPanel();
+                }
+                else
+                {
+                    Console.WriteLine("Email or password is not correct! ");
                 }
             }
+
         }
-        
+
 
 
     }

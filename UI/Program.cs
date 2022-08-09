@@ -8,11 +8,13 @@ namespace AuthenticationWithClie.UI
     {
         static void Main(string[] args)
         {
+
             Console.WriteLine("Commands :");
-            Console.WriteLine("/register");
-            Console.WriteLine("/login");
-            Console.WriteLine("/logout");
-            Console.WriteLine("/exit");
+            Console.WriteLine("1./register");
+            Console.WriteLine("2./login");
+            Console.WriteLine("3./show-blogs-with-comments");
+            Console.WriteLine("4./show-filtered-blogs-with-comments");
+
             Console.WriteLine("_________________________________________________________");
 
             while (true)
@@ -29,10 +31,15 @@ namespace AuthenticationWithClie.UI
                 {
                     Authentication.Login();
                 }
-                else if (command == "/logout")
+                else if (command == "/show-blogs-with-comments")
                 {
-                    break;
+
                 }
+                else if (command == "/show-filtered-blogs-with-comments")
+                {
+
+                }
+               
                 else
                 {
                     Console.WriteLine("Command not found! ");

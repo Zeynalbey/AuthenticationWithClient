@@ -18,7 +18,6 @@ namespace AuthenticationWithClie.Database.Models
         public string Password { get; set; }
         public string UserGender { get; set; }
 
-        public List<Report> Reportinbox { get; set; } = new List<Report>();
         public User(string firstName, string lastName, string userGender, string email,  string password, int? id=null)
         {
             FirstName = firstName;
@@ -39,7 +38,7 @@ namespace AuthenticationWithClie.Database.Models
 
         public virtual string GetInfo()
         {
-            return $"User name: {FirstName}, Lastname: {LastName}, Gender: {UserGender}, Email: {Email}, Password: {Password}, Date: {CreatedAt}";
+            return $"{FirstName} {LastName} {Email}";
         }
     }
 }

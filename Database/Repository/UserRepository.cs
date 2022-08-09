@@ -34,6 +34,7 @@ namespace AuthenticationWithClie.Database.Repository
             DbContext.Add(new Admin("Eshqin", "Mahmudov","male", "eshqin@gmail.com", "123321"));
             DbContext.Add(new User("Inci", "Mikayilli", "female", "inci@gmail.com", "123321"));
             DbContext.Add(new User("Said", "Mikayilli", "male", "said@gmail.com", "123321"));
+            DbContext.Add(new User("Xumar", "Xumarli", "female", "xumar@gmail.com", "123321"));
         }
 
         public User AddUser(string firstName, string lastName, string email, string userGender, string password)
@@ -80,6 +81,7 @@ namespace AuthenticationWithClie.Database.Repository
             {
                 if (user.Email == email && user.Password == password)
                 {
+                    
                     return true;
                 }
             }
@@ -139,33 +141,7 @@ namespace AuthenticationWithClie.Database.Repository
                 Console.WriteLine($"Refreshed info: {newFirstName} {newLastName} {newUserGender}");
             }
             
-        }
+        }  
 
-        public static void ShowAdmins()
-        {
-            foreach (User user in DbContext)
-            {
-                if (user is Admin)
-                {
-                    Console.WriteLine($"Name: {user.FirstName}, Lastname: {user.LastName}, Email: {user.Email}  Date: {user.CreatedAt}");
-                }          
-            }
-        }
-
-        public static void ShowUsers()
-        {
-            foreach (User user in DbContext)
-            {
-                if (user is not Admin)
-                {
-                    Console.WriteLine($"Name: {user.FirstName}, Lastname: {user.LastName}, Email: {user.Email}  Date: {user.CreatedAt}");
-                }
-            }
-        }
-
-
-       
-
-        
     }
 }

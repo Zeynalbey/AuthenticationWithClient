@@ -12,12 +12,7 @@ namespace AuthenticationWithClie.Database.Repository
     {
         public static List<Blog> Blogs { get; set; } = new List<Blog>();
 
-        public Blog AddBlog(User owner, string content)
-        {
-            Blog blog = new Blog(owner, content);
-            Blogs.Add(blog);
-            return blog;
-        }
+
 
         public void ShowBlogs()
         {
