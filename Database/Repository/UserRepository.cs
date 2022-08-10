@@ -35,6 +35,10 @@ namespace AuthenticationWithClie.Database.Repository
             DbContext.Add(new User("Inci", "Mikayilli", "female", "inci@gmail.com", "123321"));
             DbContext.Add(new User("Said", "Mikayilli", "male", "said@gmail.com", "123321"));
             DbContext.Add(new User("Xumar", "Xumarli", "female", "xumar@gmail.com", "123321"));
+            DbContext.Add(new Admin("1", "1", "male", "1", "1"));
+            DbContext.Add(new User("2", "2", "female", "2", "2"));
+            DbContext.Add(new User("3", "3", "female", "3", "3"));
+
         }
 
         public User AddUser(string firstName, string lastName, string email, string userGender, string password)

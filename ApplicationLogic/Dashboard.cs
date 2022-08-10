@@ -45,11 +45,12 @@ namespace AuthenticationWithClie.ApplicationLogic
 
                 else if (command == "/approve-blog")
                 {
-
+                    dashboardService.Approve();
                 }
+
                 else if (command == "/reject-blog")
                 {
-
+                    dashboardService.Reject();
                 }
 
                 else if (command == "/logout")
@@ -58,6 +59,7 @@ namespace AuthenticationWithClie.ApplicationLogic
                     Authentication.IsAuthorized = false;
                     break;
                 }
+
                 else
                 {
                     Console.WriteLine("Command not found");
@@ -71,7 +73,7 @@ namespace AuthenticationWithClie.ApplicationLogic
         public static void UserPanel()
         {
             DashboardService dashboardService = new DashboardService();
-
+            BlogRepository blogRepository = new BlogRepository();
             while (true)
             {
                 Console.WriteLine($"/inbox  /add-comment  /blogs  /add-blog  /delete-blog  /logout");
@@ -92,7 +94,7 @@ namespace AuthenticationWithClie.ApplicationLogic
                 }
                 else if (command == "/add-blog")
                 {
-                    dashboardService.AddBlog();
+                    blogRepository.AddBlog();
                 }
                 else if (command == "/delete-blog")
                 {
@@ -109,7 +111,6 @@ namespace AuthenticationWithClie.ApplicationLogic
                     Console.WriteLine("Command not found");
                 }
                 Console.WriteLine();
-
             }
 
         }

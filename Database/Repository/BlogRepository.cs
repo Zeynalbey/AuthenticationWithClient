@@ -1,4 +1,5 @@
 ﻿using AuthenticationWithClie.ApplicationLogic;
+using AuthenticationWithClie.ApplicationLogic.Validations;
 using AuthenticationWithClie.Database.Models;
 using System;
 using System.Collections.Generic;
@@ -10,49 +11,31 @@ namespace AuthenticationWithClie.Database.Repository
 {
     public class BlogRepository
     {
-        public static List<Blog> Blogs { get; set; } = new List<Blog>();
+        public List<Blog> Blogs { get; set; } = new List<Blog>();
 
-
-
-        public void ShowBlogs()
+        public void AddBlog()
         {
-            foreach (Blog blog in Blogs)
+            Console.Write("Please enter your blog title : ");
+            string title = Console.ReadLine();
+
+            Console.Write("Please enter your blog content : ");
+            string content = Console.ReadLine();
+
+            Random random = new Random();
+            int num = random.Next(10000, 99999);
+            string blogCode = $"BL{num}";
+            if (BlogValidations.IsValidTitle(title) && BlogValidations.IsValidContent(content))
             {
-                Console.WriteLine($"{blog.Id}. Owner: {blog.Owner.FirstName}, Content: {blog.Content}, Date: {blog.BlogDateTime}, Blog status: {blog.blogStatus}.");
-            }
-        }
+                Blog blog = new Blog(Authentication.Account, content, blogCode, title);
 
-        public Blog GetBlogbyId(int id)
-        {
-            foreach (Blog blog in Blogs)
+                Blogs.Add(blog);
+                Console.WriteLine("Blog added successfully! ");
+            }
+            else
             {
-                if (blog.Id == id)
-                {
-                    return blog;
-                }
-
+                Console.WriteLine("Title or content is not correct! ");
             }
-            return null;
-        }
-        public void DeleteBlogs()
-        {
-            Console.Write("Which blog do you want delete, write id : ");
-            int id = int.Parse(Console.ReadLine());
-            foreach (Blog blog in Blogs)
-            {
-                if (blog.Id == id)
-                {
-                    Blogs.Remove(blog);
-                    Console.WriteLine("Blog deleted. ");
-                    break;
-                }
-                Console.WriteLine($"{id} blog is not in system. ");
-            }
-        }
 
-        public void DeleteAllBlog()
-        {
-            Blogs.Clear();
         }
     }
 }

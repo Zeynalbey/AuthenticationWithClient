@@ -11,7 +11,6 @@ namespace AuthenticationWithClie.Database.Models
 {
     public class Blog
     {
-        //1. [<BlogCreateDate>] [<blogCode>] [<Title>] [<Content>] [<BlogStatus>]
         public int Id { get; set; }
         public static int IdCounter { get; set; } = 1;
         public User Owner { get; set; }
