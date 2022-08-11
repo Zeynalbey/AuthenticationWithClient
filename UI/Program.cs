@@ -1,4 +1,5 @@
 ﻿using AuthenticationWithClie.ApplicationLogic;
+using AuthenticationWithClie.ApplicationLogic.Validations.Services;
 using AuthenticationWithClie.Database.Repository;
 using System;
 
@@ -9,13 +10,16 @@ namespace AuthenticationWithClie.UI
         static void Main(string[] args)
         {
 
+            
             Console.WriteLine("Commands :");
             Console.WriteLine("1./register");
             Console.WriteLine("2./login");
             Console.WriteLine("3./show-blogs-with-comments");
             Console.WriteLine("4./show-filtered-blogs-with-comments");
-
+            Console.WriteLine("5./find-blog-by-code");
             Console.WriteLine("_________________________________________________________");
+           
+            BlogService blogService = new BlogService();
 
             while (true)
             {
@@ -33,13 +37,17 @@ namespace AuthenticationWithClie.UI
                 }
                 else if (command == "/show-blogs-with-comments")
                 {
-
+                    blogService.ShowBlogWithComments();
                 }
                 else if (command == "/show-filtered-blogs-with-comments")
                 {
+                    
+                   
+                }
+                else if (command == "/find-blog-by-code")
+                {
 
                 }
-               
                 else
                 {
                     Console.WriteLine("Command not found! ");

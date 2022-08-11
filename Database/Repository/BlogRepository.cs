@@ -11,7 +11,7 @@ namespace AuthenticationWithClie.Database.Repository
 {
     public class BlogRepository
     {
-        public List<Blog> Blogs { get; set; } = new List<Blog>();
+        public static List<Blog> Blogs { get; set; } = new List<Blog>();
 
         public void AddBlog()
         {
@@ -26,7 +26,7 @@ namespace AuthenticationWithClie.Database.Repository
             string blogCode = $"BL{num}";
             if (BlogValidations.IsValidTitle(title) && BlogValidations.IsValidContent(content))
             {
-                Blog blog = new Blog(Authentication.Account, content, blogCode, title);
+                Blog blog = new Blog(Authentication.Account, content,blogCode, title);
 
                 Blogs.Add(blog);
                 Console.WriteLine("Blog added successfully! ");

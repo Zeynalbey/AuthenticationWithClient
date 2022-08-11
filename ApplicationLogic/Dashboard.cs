@@ -16,6 +16,7 @@ namespace AuthenticationWithClie.ApplicationLogic
     {
         public static void AdminPanel()
         {
+            BlogService blogService = new BlogService();
             DashboardService dashboardService = new DashboardService();
 
             while (true)
@@ -40,17 +41,17 @@ namespace AuthenticationWithClie.ApplicationLogic
 
                 else if (command == "/show-auditing-blogs")
                 {
-                    dashboardService.ShowAuditingBlogs();
+                    blogService.ShowAuditingBlogs();
                 }
 
                 else if (command == "/approve-blog")
                 {
-                    dashboardService.Approve();
+                    blogService.Approve();
                 }
 
                 else if (command == "/reject-blog")
                 {
-                    dashboardService.Reject();
+                    blogService.Reject();
                 }
 
                 else if (command == "/logout")
@@ -72,8 +73,8 @@ namespace AuthenticationWithClie.ApplicationLogic
     {
         public static void UserPanel()
         {
-            DashboardService dashboardService = new DashboardService();
             BlogRepository blogRepository = new BlogRepository();
+            BlogService blogService = new BlogService();
             while (true)
             {
                 Console.WriteLine($"/inbox  /add-comment  /blogs  /add-blog  /delete-blog  /logout");
@@ -86,11 +87,11 @@ namespace AuthenticationWithClie.ApplicationLogic
                 }
                 else if (command == "/add-comment")
                 {
-
+                    blogService.AddCommit();
                 }
                 else if (command == "/blogs")
                 {
-                    dashboardService.ShowOwnBlogs();
+                    blogService.ShowOwnBlogs();
                 }
                 else if (command == "/add-blog")
                 {
@@ -98,7 +99,7 @@ namespace AuthenticationWithClie.ApplicationLogic
                 }
                 else if (command == "/delete-blog")
                 {
-                    dashboardService.DeleteOwnBlog();
+                    blogService.DeleteOwnBlog();
                 }
                 else if (command == "/logout")
                 {

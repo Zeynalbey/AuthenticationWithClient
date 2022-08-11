@@ -56,11 +56,9 @@ namespace AuthenticationWithClie.ApplicationLogic
                 {
                     User user = new User(firstName, lastName, gender, email, password);
                     UserRepository.Add(user);
-                    Console.WriteLine($"User added to system, details are : {user.GetInfo()}");
+                    Console.WriteLine("You successfully registered, now you can login with your new account! ");
                 }
-
             }
-
         }
 
         public static void Login()

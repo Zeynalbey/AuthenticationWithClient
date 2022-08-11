@@ -20,6 +20,8 @@ namespace AuthenticationWithClie.Database.Models
         public  DateTime BlogDateTime { get; set; }
         public BlogStatus blogStatus { get; set; }
 
+        public List<Comment> Comments { get; set; } = new List<Comment>(); 
+
         public Blog(User owner, string content, string blogCode, string title)
         {
             Id = IdCounter++;
@@ -28,9 +30,7 @@ namespace AuthenticationWithClie.Database.Models
             BlogCode = blogCode;
             Title = title;
             BlogDateTime = DateTime.Now;
-            blogStatus = BlogStatus.Pending;
-
-            
+            blogStatus = BlogStatus.Pending;         
         }
 
 
