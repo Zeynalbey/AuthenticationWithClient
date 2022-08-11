@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace AuthenticationWithClie.ApplicationLogic.Validations
 {
-    public static class UserValidation
+    public class UserValidation
     {
-        public static bool IsValidFirstName(string firstName)
+        public bool IsValidFirstName(string firstName)
         {
             Regex regex = new Regex(@"^(?=[A-Z]{1})([A-Za-z]{3,30})$");
 
@@ -25,7 +25,7 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations
             return false;
         }
 
-        public static bool IsValidLastName(string lastName)
+        public bool IsValidLastName(string lastName)
         {
             Regex regex = new Regex(@"^(?=[A-Z]{1})([A-Za-z]{4,29})$");
 
@@ -39,7 +39,7 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations
             return false;
         }
 
-        public static bool IsValidEmail(string email)
+        public  bool IsValidEmail(string email)
         {
             Regex regex = new Regex(@"^[A-Za-z0-9]{10,20}@code\.edu\.az$");
 
@@ -53,7 +53,7 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations
             return false;
         }
 
-        public static bool IsPasswordsMatch(string password, string confirmPassword)
+        public  bool IsPasswordsMatch(string password, string confirmPassword)
         {
             if (password == confirmPassword)
             {
@@ -66,7 +66,7 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations
 
         }
 
-        public static bool IsValidPassword(string password)
+        public  bool IsValidPassword(string password)
         {
             Regex regex = new Regex(@"^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=[a-zA-Z0-9]{8,}).*$");
 
@@ -80,7 +80,7 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations
             return false;
         }
 
-        public static bool IsUserExist(string email)
+        public  bool IsUserExist(string email)
         {
             UserRepository userRepository = new UserRepository();
             if (userRepository.IsUserExistsByEmail(email))

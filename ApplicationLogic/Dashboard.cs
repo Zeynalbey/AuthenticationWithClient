@@ -77,6 +77,7 @@ namespace AuthenticationWithClie.ApplicationLogic
             BlogService blogService = new BlogService();
             while (true)
             {
+                Console.WriteLine();
                 Console.WriteLine($"/inbox  /add-comment  /blogs  /add-blog  /delete-blog  /logout");
                 Console.Write("Enter command : ");
                 string command = Console.ReadLine();
@@ -87,7 +88,7 @@ namespace AuthenticationWithClie.ApplicationLogic
                 }
                 else if (command == "/add-comment")
                 {
-                    blogService.AddCommit();
+                    blogService.AddComment();
                 }
                 else if (command == "/blogs")
                 {
@@ -113,7 +114,6 @@ namespace AuthenticationWithClie.ApplicationLogic
                 }
                 Console.WriteLine();
             }
-
         }
     }
 }

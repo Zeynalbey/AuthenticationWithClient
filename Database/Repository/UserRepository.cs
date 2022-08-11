@@ -10,8 +10,9 @@ using System.Threading.Tasks;
 
 namespace AuthenticationWithClie.Database.Repository
 {
-    public class UserRepository : Repository<User,int>
+    public class UserRepository : Repository<User, int>
     {
+        UserValidation userValidation = new UserValidation();
         private static int _idCounter;
 
         public static int IdCounter
@@ -30,29 +31,11 @@ namespace AuthenticationWithClie.Database.Repository
 
         private static void SeedUsers()
         {
-            DbContext.Add(new Admin("Mahmood", "Garibov","male","qaribovmahmud@gmail.com", "123321"));
-            DbContext.Add(new Admin("Eshqin", "Mahmudov","male", "eshqin@gmail.com", "123321"));
+            DbContext.Add(new Admin("Mahmood", "Garibov", "male", "qaribovmahmud@gmail.com", "123321"));
+            DbContext.Add(new Admin("Eshqin", "Mahmudov", "male", "eshqin@gmail.com", "123321"));
             DbContext.Add(new User("Inci", "Mikayilli", "female", "inci@gmail.com", "123321"));
             DbContext.Add(new User("Said", "Mikayilli", "male", "said@gmail.com", "123321"));
             DbContext.Add(new User("Xumar", "Xumarli", "female", "xumar@gmail.com", "123321"));
-            DbContext.Add(new Admin("1", "1", "male", "1", "1"));
-            DbContext.Add(new User("2", "2", "female", "2", "2"));
-            DbContext.Add(new User("3", "3", "female", "3", "3"));
-
-        }
-
-        public User AddUser(string firstName, string lastName, string email, string userGender, string password)
-        {
-            User user = new User(firstName, lastName, email, userGender, password, IdCounter);
-            DbContext.Add(user);
-            return user;
-        }
-
-        public User AddUser(string firstName, string lastName, string email, string userGender, string password, int id)
-        {
-            User user = new User(firstName, lastName, email, password, userGender, id);
-            DbContext.Add(user);
-            return user;
         }
 
         public bool IsUserExistsByEmail(string email)
@@ -67,33 +50,21 @@ namespace AuthenticationWithClie.Database.Repository
             return false;
         }
 
-        public User GetUserByEmailAndPassword(string email, string password)
+        public bool IsUserExistByEmailAndPassword(string email, string password)
         {
             foreach (User user in DbContext)
             {
                 if (user.Email == email && user.Password == password)
                 {
-                    return user;
-                }
-            }
-            return null;
-        }
 
-        public static bool IsUserExistByEmailAndPassword(string email, string password)
-        {
-            foreach (User user in DbContext)
-            {
-                if (user.Email == email && user.Password == password)
-                {
-                    
                     return true;
                 }
             }
             Console.WriteLine("Email or password is not correct.");
-            return false; 
+            return false;
         }
 
-        public static User GetUserByEmail(string email)
+        public User GetUserByEmail(string email)
         {
             foreach (User user in DbContext)
             {
@@ -105,47 +76,6 @@ namespace AuthenticationWithClie.Database.Repository
             Console.WriteLine("This email is not registered.");
             return null;
         }
-
-        public void UpdateInfo()
-        {
-            if (Authentication.IsAuthorized)
-            {
-                IsValidInfo();
-            }
-        }
-
-        public void UpdateUserbyId(int id)
-        {
-            foreach (User user in DbContext)
-            {
-                if (user.Id == id)
-                {
-                    IsValidInfo();
-                }
-            }
-
-        }
-
-        private static void IsValidInfo()
-        {
-            Console.Write("Write new name: ");
-            string newFirstName = Console.ReadLine();
-            Console.Write("Write new lastname: ");
-            string newLastName = Console.ReadLine();
-            Console.Write("Write your gender: ");
-            string newUserGender = Console.ReadLine();
-
-            if (UserValidation.IsValidFirstName(newFirstName) &
-            UserValidation.IsValidLastName(newLastName) &
-            Validation.IsValidGender(newUserGender))
-            {
-                Authentication.Account.FirstName = newFirstName;
-                Authentication.Account.LastName = newLastName;
-                Authentication.Account.UserGender = newUserGender;
-                Console.WriteLine($"Refreshed info: {newFirstName} {newLastName} {newUserGender}");
-            }
-            
-        }  
 
     }
 }

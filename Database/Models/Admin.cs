@@ -9,9 +9,6 @@ namespace AuthenticationWithClie.Database.Models
 {
     public sealed class Admin : User
     {
-        public Admin(string firstName, string lastName, string userGender, string email, string password, int id)
-            :base(firstName, lastName, userGender, email, password, id){}
-
         public Admin(string firstName, string lastName, string userGender, string email, string password)
             : base(firstName, lastName, userGender, email, password){}
 

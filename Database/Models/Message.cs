@@ -10,7 +10,7 @@ namespace AuthenticationWithClie.Database.Models
     public class Message
     {
         public string BlogCode { get; set; }
-        public InboxEnum BlogStatus { get; set; }
+        public Inbox BlogStatus { get; set; }
         public List<Comment> CommentList { get; set; } = new List<Comment>();
     }
 }

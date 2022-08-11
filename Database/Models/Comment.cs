@@ -9,12 +9,10 @@ namespace AuthenticationWithClie.Database.Models
 {
     public class Comment
     {
-
         public int RowNumber { get; set; }
         public static int RowCounter { get; set; } = 1;
         public string Content { get; set; }
         public DateTime CommentDateTime { get; set; }
-
         public User Owner { get; set; }
 
         public Comment(User owner, string content)
@@ -24,6 +22,5 @@ namespace AuthenticationWithClie.Database.Models
             CommentDateTime = DateTime.Now;
             RowNumber = RowCounter++;
         }
-
     }
 }

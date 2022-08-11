@@ -8,22 +8,20 @@ namespace AuthenticationWithClie.UI
     internal class Program
     {
         static void Main(string[] args)
-        {
-
-            
-            Console.WriteLine("Commands :");
-            Console.WriteLine("1./register");
-            Console.WriteLine("2./login");
-            Console.WriteLine("3./show-blogs-with-comments");
-            Console.WriteLine("4./show-filtered-blogs-with-comments");
-            Console.WriteLine("5./find-blog-by-code");
-            Console.WriteLine("_________________________________________________________");
-           
+        {                     
             BlogService blogService = new BlogService();
 
             while (true)
             {
+                Console.WriteLine("Commands :");
+                Console.WriteLine("1./register");
+                Console.WriteLine("2./login");
+                Console.WriteLine("3./show-blogs-with-comments");
+                Console.WriteLine("4./show-filtered-blogs-with-comments");
+                Console.WriteLine("5./find-blog-by-code");
+                Console.WriteLine("_________________________________________________________");
                 Console.WriteLine();
+
                 Console.Write("Enter command : ");
                 string command = Console.ReadLine();
 
@@ -46,14 +44,12 @@ namespace AuthenticationWithClie.UI
                 }
                 else if (command == "/find-blog-by-code")
                 {
-
+                    blogService.FindBlogWithCode();
                 }
                 else
                 {
                     Console.WriteLine("Command not found! ");
                 }
-
-
             }
         }
     }

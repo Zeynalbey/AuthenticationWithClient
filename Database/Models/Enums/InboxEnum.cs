@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AuthenticationWithClie.Database.Models.Enums
 {
-    public enum InboxEnum
+    public enum Inbox
     {
         Approve=1,
         Reject=2

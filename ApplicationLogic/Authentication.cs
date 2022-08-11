@@ -18,6 +18,7 @@ namespace AuthenticationWithClie.ApplicationLogic
         public static void Register()
         {
             UserRepository userRepository = new UserRepository();
+            UserValidation userValidation = new UserValidation();
             Console.WriteLine("Name's first letter must be uppercase, length is 3-30 and only letters.");
             Console.WriteLine("Lastname's first letter must be uppercase, length is 3-30 and only letters.");
             Console.WriteLine("Email username's length must be between 10-30, and ends with @code.edu.az");
@@ -31,7 +32,7 @@ namespace AuthenticationWithClie.ApplicationLogic
             Console.Write("Enter user's last name : ");
             string lastName = Console.ReadLine();
 
-            Console.Write("Choose gender (Male or Female) : ");
+            Console.Write("Choose gender (male or female) : ");
             string gender = Console.ReadLine();
 
             Console.Write("Enter user's email : ");
@@ -44,15 +45,15 @@ namespace AuthenticationWithClie.ApplicationLogic
             string confirmPassword = Console.ReadLine();
             Console.WriteLine("_________________________________________________________");
 
-
             if (
-                UserValidation.IsValidFirstName(firstName) &
-                UserValidation.IsValidLastName(lastName) &
-                UserValidation.IsValidEmail(email) &
-                UserValidation.IsValidPassword(password) &
+                userValidation.IsValidFirstName(firstName) &
+                userValidation.IsValidLastName(lastName) &
+                userValidation.IsValidEmail(email) &
+                userValidation.IsValidPassword(password) &
+                userValidation.IsPasswordsMatch(password,confirmPassword) &
                 Validation.IsValidGender(gender))
             {
-                if (!UserValidation.IsUserExist(email))
+                if (!userValidation.IsUserExist(email))
                 {
                     User user = new User(firstName, lastName, gender, email, password);
                     UserRepository.Add(user);
@@ -65,17 +66,15 @@ namespace AuthenticationWithClie.ApplicationLogic
         {
             UserRepository userRepository = new UserRepository();
 
-
             Console.WriteLine();
             Console.Write("Please enter user's email : ");
             string email = Console.ReadLine();
-
             Console.Write("Please enter user's password : ");
             string password = Console.ReadLine();
 
-            if (UserRepository.IsUserExistByEmailAndPassword(email, password) && !IsAuthorized)
+            if (userRepository.IsUserExistByEmailAndPassword(email, password) && !IsAuthorized)
             {
-                User user = UserRepository.GetUserByEmail(email);
+                User user = userRepository.GetUserByEmail(email);
                 if (user is Admin)
                 {
                     Console.WriteLine("_________________________________________________________");
@@ -97,10 +96,6 @@ namespace AuthenticationWithClie.ApplicationLogic
                     Console.WriteLine("Email or password is not correct! ");
                 }
             }
-
         }
-
-
-
     }
 }

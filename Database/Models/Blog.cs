@@ -32,7 +32,5 @@ namespace AuthenticationWithClie.Database.Models
             BlogDateTime = DateTime.Now;
             blogStatus = BlogStatus.Pending;         
         }
-
-
     }
 }

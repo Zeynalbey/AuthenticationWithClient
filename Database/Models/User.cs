@@ -20,7 +20,6 @@ namespace AuthenticationWithClie.Database.Models
         public List<Message> Inbox { get; set; } = new List<Message>();
         public List<Comment> Comments { get; set; } = new List<Comment>();
 
-
         public User(string firstName, string lastName, string userGender, string email,  string password, int? id=null)
         {
             FirstName = firstName;

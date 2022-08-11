@@ -11,58 +11,75 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
 {
     public class BlogService
     {
-
-        public static List<Comment> Comments { get; set; } = new List<Comment>();
-
         public void ShowOwnBlogs()
         {
-            foreach (Blog blog in BlogRepository.Blogs)
+            if (BlogRepository.Blogs.Count == 0)
             {
-                if (Authentication.Account == blog.Owner)
+                Console.WriteLine("There are not any blogs yet!");
+            }
+            else
+            {
+                foreach (Blog blog in BlogRepository.Blogs)
                 {
-                    Console.WriteLine($"{blog.Id}.{blog.Owner.FirstName} {blog.BlogDateTime} {blog.BlogCode} {blog.Title} {blog.Content} {blog.blogStatus}.");
+                    if (Authentication.Account == blog.Owner)
+                    {
+                        Console.WriteLine($"{blog.Id}.{blog.Owner.FirstName} {blog.BlogDateTime} {blog.BlogCode} {blog.Title} {blog.Content} {blog.blogStatus}.");
+                    }
                 }
             }
         }
+
         public void ShowAuditingBlogs()
         {
-            foreach (Blog blog in BlogRepository.Blogs)
+            if (BlogRepository.Blogs.Count == 0)
             {
-                if (blog.blogStatus == BlogStatus.Pending)
+                Console.WriteLine("There are not any blogs yet!");
+            }
+            else
+            {
+                foreach (Blog blog in BlogRepository.Blogs)
                 {
-                    Console.WriteLine($"{blog.BlogDateTime} {blog.BlogCode} {blog.blogStatus} {blog.Owner.FirstName} {blog.Owner.LastName}");
-                    Console.WriteLine($"==={blog.Title}===");
-                    Console.WriteLine(blog.Content);
+                    if (blog.blogStatus == BlogStatus.Pending)
+                    {
+                        Console.WriteLine($"{blog.BlogDateTime} {blog.BlogCode} {blog.blogStatus} {blog.Owner.FirstName} {blog.Owner.LastName}");
+                        Console.WriteLine($"==={blog.Title}===");
+                        Console.WriteLine(blog.Content);
+                    }
                 }
             }
         }
 
         public void DeleteOwnBlog()
         {
-            var NewList = from blog in BlogRepository.Blogs
-                          where Authentication.Account != blog.Owner
-                          select blog;
-            BlogRepository.Blogs = NewList.ToList();
-            /*internetde arasdirdim, yazdim*/
+            if (BlogRepository.Blogs.Count == 0)
+            {
+                Console.WriteLine("There are not any blogs yet!");
+            }
+            else
+            {
+                var NewList = from blog in BlogRepository.Blogs
+                              where Authentication.Account != blog.Owner
+                              select blog;
+                BlogRepository.Blogs = NewList.ToList();
+                /*internetde arasdirdim, yazdim*/
+            }
         }
 
         public void ShowBlogWithComments()
         {
-            foreach (Blog blog in BlogRepository.Blogs)
+            if (BlogRepository.Blogs.Count == 0)
             {
-                if (blog.blogStatus==BlogStatus.Approved)
+                Console.WriteLine("There are not any blogs yet.");
+            }
+            else
+            {
+                foreach (Blog blog in BlogRepository.Blogs)
                 {
-                    Console.WriteLine($"{ blog.BlogDateTime} {blog.BlogCode} {blog.Owner.FirstName} {blog.Owner.LastName}");
-                    Console.WriteLine(blog.Title);
-                    Console.WriteLine(blog.Content);
-                    Console.WriteLine();
-
-                    foreach (Comment comment in blog.Comments)
+                    if (blog.blogStatus == BlogStatus.Approved)
                     {
-                    
-                        Console.WriteLine($"{comment.RowNumber}. {comment.CommentDateTime} {comment.Owner.FirstName} {comment.Owner.LastName} - {comment.Content}.");
+                        BlogDetails(blog);
+
                     }
-   
                 }
             }
         }
@@ -79,7 +96,7 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
                     blog.blogStatus = BlogStatus.Approved;
                     Message message = new Message();
                     message.BlogCode = blog.BlogCode;
-                    message.BlogStatus = InboxEnum.Approve;
+                    message.BlogStatus = Inbox.Approve;
                     blog.Owner.Inbox.Add(message);
                     Console.WriteLine("Status approved. ");
                     break;
@@ -99,63 +116,76 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
                     blog.blogStatus = BlogStatus.Rejected;
                     Message message = new Message();
                     message.BlogCode = blog.BlogCode;
-                    message.BlogStatus = InboxEnum.Approve;
+                    message.BlogStatus = Inbox.Approve;
                     blog.Owner.Inbox.Add(message);
                     Console.WriteLine("Status rejected. ");
                     break;
                 }
             }
-
         }
 
-        public void AddCommit()
+        public void AddComment()
         {
-            Console.Write("Please enter your blogcode : ");
-            string blogCode = Console.ReadLine();
-
-            foreach (Blog blog in BlogRepository.Blogs)
+            if (BlogRepository.Blogs.Count == 0)
             {
-                if (blogCode == blog.BlogCode)
+                Console.WriteLine("There are not any blogs yet.");
+            }
+            else
+            {
+                Console.Write("Please enter your blogcode : ");
+                string blogCode = Console.ReadLine();
+
+                foreach (Blog blog in BlogRepository.Blogs)
                 {
-                    string content = Console.ReadLine();
+                    if (blogCode == blog.BlogCode)
+                    {
+                        string content = Console.ReadLine();
 
-                    Comment comment = new Comment(Authentication.Account, content);
-                 
-                  Message message = new Message();
-                    message.BlogCode = blog.BlogCode;
-                    message.BlogStatus = InboxEnum.Approve;
+                        Comment comment = new Comment(Authentication.Account, content);
 
-                    message.CommentList.Add(comment);
-                    blog.Owner.Inbox.Add(message);
+                        Message message = new Message();
+                        message.BlogCode = blog.BlogCode;
+                        message.BlogStatus = Inbox.Approve;
 
-                    blog.Comments.Add(comment);
-                    blog.Owner.Comments.Add(comment);
+                        message.CommentList.Add(comment);
+                        blog.Owner.Inbox.Add(message);
 
-
+                        blog.Comments.Add(comment);
+                        blog.Owner.Comments.Add(comment);
+                    }
                 }
             }
         }
 
         public void ShowFilteredBlogs()
         {
-            Console.WriteLine("With which method do you want search blog: ");
-            Console.WriteLine("a) Title");
-            Console.WriteLine("b) Firstname");
-            string command = Console.ReadLine();
-            if (command == "Title")
+            if (BlogRepository.Blogs.Count == 0)
             {
-                ShowBlogWithCommentsByTitle();
-            }
-            else if (command == "Firstname")
-            {
-                ShowFilteredBlogWithCommentsByFirstname();
+                Console.WriteLine("There are not any blogs yet.");
             }
             else
             {
-                Console.WriteLine("Command not found");
+                Console.WriteLine("With which method do you want search blog: ");
+                Console.WriteLine("a) Title");
+                Console.WriteLine("b) Firstname");
+                string command = Console.ReadLine();
+
+                if (command == "Title")
+                {
+                    ShowBlogWithCommentsByTitle();
+                }
+                else if (command == "Firstname")
+                {
+                    ShowFilteredBlogWithCommentsByFirstname();
+                }
+                else
+                {
+                    Console.WriteLine("Command not found");
+                }
             }
         }
-        public void ShowBlogWithCommentsByTitle()
+
+        private void ShowBlogWithCommentsByTitle()
         {
             Console.Write("Enter title: ");
             string title = Console.ReadLine();
@@ -164,20 +194,12 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
             {
                 if (title == blog.Title)
                 {
-                    Console.WriteLine($"{ blog.BlogDateTime} {blog.BlogCode} {blog.Owner.FirstName} {blog.Owner.LastName}");
-                    Console.WriteLine(blog.Title);
-                    Console.WriteLine(blog.Content);
-                    Console.WriteLine();
-
-                    foreach (Comment comment in blog.Comments)
-                    {
-
-                        Console.WriteLine($"{comment.RowNumber}. {comment.CommentDateTime} {comment.Owner.FirstName} {comment.Owner.LastName} - {comment.Content}.");
-                    }
+                    BlogDetails(blog);
                 }
             }
         }
-        public void ShowFilteredBlogWithCommentsByFirstname()
+
+        private void ShowFilteredBlogWithCommentsByFirstname()
         {
             Console.Write("Enter firstname:  ");
             string firstName = Console.ReadLine();
@@ -186,17 +208,41 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
             {
                 if (firstName == blog.Owner.FirstName)
                 {
-                    Console.WriteLine($"{ blog.BlogDateTime} {blog.BlogCode} {blog.Owner.FirstName} {blog.Owner.LastName}");
-                    Console.WriteLine(blog.Title);
-                    Console.WriteLine(blog.Content);
-                    Console.WriteLine();
+                    BlogDetails(blog);
+                }
+            }
+        }
 
-                    foreach (Comment comment in blog.Comments)
+        public void FindBlogWithCode()
+        {
+            if (BlogRepository.Blogs.Count == 0)
+            {
+                Console.WriteLine("There are not any blogs yet.");
+            }
+            else
+            {
+                Console.Write("Enter blogcode, which you want to search: ");
+                string blogCode = Console.ReadLine();
+                foreach (Blog blog in BlogRepository.Blogs)
+                {
+                    if (blogCode == blog.BlogCode)
                     {
-
-                        Console.WriteLine($"{comment.RowNumber}. {comment.CommentDateTime} {comment.Owner.FirstName} {comment.Owner.LastName} - {comment.Content}.");
+                        BlogDetails(blog);
                     }
                 }
+            }
+        }
+
+        private void BlogDetails(Blog blog)
+        {
+            Console.WriteLine($"Blog create time: {blog.BlogDateTime} Blog code: {blog.BlogCode} Blog owner: {blog.Owner.FirstName} {blog.Owner.LastName}");
+            Console.WriteLine($"Blog title: {blog.Title}");
+            Console.WriteLine($"Blog content: {blog.Content}");
+            Console.WriteLine();
+
+            foreach (Comment comment in blog.Comments)
+            {
+                Console.WriteLine($"{comment.RowNumber}. Comment write time: {comment.CommentDateTime} Comment owner: {comment.Owner.FirstName} {comment.Owner.LastName} - Content{comment.Content}.");
             }
         }
 

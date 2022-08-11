@@ -12,9 +12,6 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
 {
     public class DashboardService : Repository<User, int>
     {
-        BlogRepository blogRepository = new BlogRepository();
-
-
         public void ShowUsers()
         {
             foreach (User user in DbContext)

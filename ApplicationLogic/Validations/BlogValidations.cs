@@ -8,15 +8,16 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations
 {
     class BlogValidations
     {
-        public static bool IsValidTitle(string title)
+        public bool IsValidTitle(string title)
         {
-            if (Validation.IsLengthBetween(title,5,35))
+            if (Validation.IsLengthBetween(title, 5, 35))
             {
                 return true;
             }
             return false;
         }
-        public static bool IsValidContent(string content)
+
+        public bool IsValidContent(string content)
         {
             if (Validation.IsLengthBetween(content, 5, 100))
             {

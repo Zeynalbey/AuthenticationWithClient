@@ -15,6 +15,7 @@ namespace AuthenticationWithClie.Database.Repository
 
         public void AddBlog()
         {
+            BlogValidations blogValidations = new BlogValidations();
             Console.Write("Please enter your blog title : ");
             string title = Console.ReadLine();
 
@@ -24,9 +25,9 @@ namespace AuthenticationWithClie.Database.Repository
             Random random = new Random();
             int num = random.Next(10000, 99999);
             string blogCode = $"BL{num}";
-            if (BlogValidations.IsValidTitle(title) && BlogValidations.IsValidContent(content))
+            if (blogValidations.IsValidTitle(title) && blogValidations.IsValidContent(content))
             {
-                Blog blog = new Blog(Authentication.Account, content,blogCode, title);
+                Blog blog = new Blog(Authentication.Account, content, blogCode, title);
 
                 Blogs.Add(blog);
                 Console.WriteLine("Blog added successfully! ");
@@ -35,7 +36,6 @@ namespace AuthenticationWithClie.Database.Repository
             {
                 Console.WriteLine("Title or content is not correct! ");
             }
-
         }
     }
 }
