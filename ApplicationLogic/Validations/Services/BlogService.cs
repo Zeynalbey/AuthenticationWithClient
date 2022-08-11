@@ -60,7 +60,7 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
                     foreach (Comment comment in blog.Comments)
                     {
                     
-                        Console.WriteLine($"{comment.RowNumber} {comment.CommentDateTime} {comment.Owner.FirstName} {comment.Owner.LastName} {comment.Content}");
+                        Console.WriteLine($"{comment.RowNumber}. {comment.CommentDateTime} {comment.Owner.FirstName} {comment.Owner.LastName} - {comment.Content}.");
                     }
    
                 }
@@ -100,7 +100,7 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
                     Message message = new Message();
                     message.BlogCode = blog.BlogCode;
                     message.BlogStatus = InboxEnum.Approve;
-                    blog.Owner.Inbox.Add(message);67
+                    blog.Owner.Inbox.Add(message);
                     Console.WriteLine("Status rejected. ");
                     break;
                 }
@@ -120,14 +120,85 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
                     string content = Console.ReadLine();
 
                     Comment comment = new Comment(Authentication.Account, content);
-                    //CommentRepository.Comments.Add(comment);
+                 
+                  Message message = new Message();
+                    message.BlogCode = blog.BlogCode;
+                    message.BlogStatus = InboxEnum.Approve;
+
+                    message.CommentList.Add(comment);
+                    blog.Owner.Inbox.Add(message);
+
                     blog.Comments.Add(comment);
                     blog.Owner.Comments.Add(comment);
+
+
                 }
             }
-
-
-
         }
+
+        public void ShowFilteredBlogs()
+        {
+            Console.WriteLine("With which method do you want search blog: ");
+            Console.WriteLine("a) Title");
+            Console.WriteLine("b) Firstname");
+            string command = Console.ReadLine();
+            if (command == "Title")
+            {
+                ShowBlogWithCommentsByTitle();
+            }
+            else if (command == "Firstname")
+            {
+                ShowFilteredBlogWithCommentsByFirstname();
+            }
+            else
+            {
+                Console.WriteLine("Command not found");
+            }
+        }
+        public void ShowBlogWithCommentsByTitle()
+        {
+            Console.Write("Enter title: ");
+            string title = Console.ReadLine();
+
+            foreach (Blog blog in BlogRepository.Blogs)
+            {
+                if (title == blog.Title)
+                {
+                    Console.WriteLine($"{ blog.BlogDateTime} {blog.BlogCode} {blog.Owner.FirstName} {blog.Owner.LastName}");
+                    Console.WriteLine(blog.Title);
+                    Console.WriteLine(blog.Content);
+                    Console.WriteLine();
+
+                    foreach (Comment comment in blog.Comments)
+                    {
+
+                        Console.WriteLine($"{comment.RowNumber}. {comment.CommentDateTime} {comment.Owner.FirstName} {comment.Owner.LastName} - {comment.Content}.");
+                    }
+                }
+            }
+        }
+        public void ShowFilteredBlogWithCommentsByFirstname()
+        {
+            Console.Write("Enter firstname:  ");
+            string firstName = Console.ReadLine();
+
+            foreach (Blog blog in BlogRepository.Blogs)
+            {
+                if (firstName == blog.Owner.FirstName)
+                {
+                    Console.WriteLine($"{ blog.BlogDateTime} {blog.BlogCode} {blog.Owner.FirstName} {blog.Owner.LastName}");
+                    Console.WriteLine(blog.Title);
+                    Console.WriteLine(blog.Content);
+                    Console.WriteLine();
+
+                    foreach (Comment comment in blog.Comments)
+                    {
+
+                        Console.WriteLine($"{comment.RowNumber}. {comment.CommentDateTime} {comment.Owner.FirstName} {comment.Owner.LastName} - {comment.Content}.");
+                    }
+                }
+            }
+        }
+
     }
 }

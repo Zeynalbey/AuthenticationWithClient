@@ -17,9 +17,8 @@ namespace AuthenticationWithClie.Database.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public string UserGender { get; set; }
-        public List<Blog> BlogList { get; set; }
-        public List <Comment> Comments { get; set; }
-        public List <Message> Inbox {get;set;}
+        public List<Message> Inbox { get; set; } = new List<Message>();
+        public List<Comment> Comments { get; set; } = new List<Comment>();
 
 
         public User(string firstName, string lastName, string userGender, string email,  string password, int? id=null)

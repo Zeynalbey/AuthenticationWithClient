@@ -16,7 +16,6 @@ namespace AuthenticationWithClie.Database.Models
         public DateTime CommentDateTime { get; set; }
 
         public User Owner { get; set; }
-        //public Blog Blogs { get; set; }
 
         public Comment(User owner, string content)
         {

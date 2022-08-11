@@ -83,7 +83,7 @@ namespace AuthenticationWithClie.ApplicationLogic
 
                 if (command == "/inbox")
                 {
-
+                   
                 }
                 else if (command == "/add-comment")
                 {

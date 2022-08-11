@@ -11,6 +11,6 @@ namespace AuthenticationWithClie.Database.Models
     {
         public string BlogCode { get; set; }
         public InboxEnum BlogStatus { get; set; }
-        public List<Comment> commentList { get; set; }
+        public List<Comment> CommentList { get; set; } = new List<Comment>();
     }
 }

@@ -41,7 +41,7 @@ namespace AuthenticationWithClie.UI
                 }
                 else if (command == "/show-filtered-blogs-with-comments")
                 {
-                    
+                    blogService.ShowFilteredBlogs();
                    
                 }
                 else if (command == "/find-blog-by-code")
