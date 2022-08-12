@@ -41,8 +41,8 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
                 {
                     if (blog.blogStatus == BlogStatus.Pending)
                     {
-                        Console.WriteLine($"{blog.BlogDateTime} {blog.BlogCode} {blog.blogStatus} {blog.Owner.FirstName} {blog.Owner.LastName}");
-                        Console.WriteLine($"==={blog.Title}===");
+                        Console.WriteLine($"[{blog.BlogDateTime}] [{blog.BlogCode}] [{blog.blogStatus}] [{blog.Owner.FirstName} {blog.Owner.LastName}]");
+                        Console.WriteLine($"======{blog.Title}======");
                         Console.WriteLine(blog.Content);
                     }
                 }
@@ -80,6 +80,10 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
                         BlogDetails(blog);
 
                     }
+                    else
+                    {
+                        Console.WriteLine("There are not any approved blogs.");
+                    }
                 }
             }
         }
@@ -111,7 +115,7 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
 
             foreach (Blog blog in BlogRepository.Blogs)
             {
-                if (blogCode == blog.BlogCode)
+                if (blogCode == blog.BlogCode )
                 {
                     blog.blogStatus = BlogStatus.Rejected;
                     Message message = new Message();
@@ -134,14 +138,17 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
             {
                 Console.Write("Please enter your blogcode : ");
                 string blogCode = Console.ReadLine();
+                Console.Write("Please enter your comment : ");
+                string content = Console.ReadLine();
 
                 foreach (Blog blog in BlogRepository.Blogs)
                 {
-                    if (blogCode == blog.BlogCode)
-                    {
-                        string content = Console.ReadLine();
+                    BlogValidations blogValidations = new BlogValidations();
 
+                    if (blogCode == blog.BlogCode & blog.blogStatus == BlogStatus.Approved & blogValidations.IsValidContent(content))
+                    {
                         Comment comment = new Comment(Authentication.Account, content);
+                        Console.WriteLine("Comment added.");
 
                         Message message = new Message();
                         message.BlogCode = blog.BlogCode;
@@ -166,15 +173,15 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
             else
             {
                 Console.WriteLine("With which method do you want search blog: ");
-                Console.WriteLine("a) Title");
-                Console.WriteLine("b) Firstname");
+                Console.WriteLine("a) title");
+                Console.WriteLine("b) firstname");
                 string command = Console.ReadLine();
 
-                if (command == "Title")
+                if (command == "title")
                 {
                     ShowBlogWithCommentsByTitle();
                 }
-                else if (command == "Firstname")
+                else if (command == "firstname")
                 {
                     ShowFilteredBlogWithCommentsByFirstname();
                 }
@@ -235,14 +242,14 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
 
         private void BlogDetails(Blog blog)
         {
-            Console.WriteLine($"Blog create time: {blog.BlogDateTime} Blog code: {blog.BlogCode} Blog owner: {blog.Owner.FirstName} {blog.Owner.LastName}");
-            Console.WriteLine($"Blog title: {blog.Title}");
-            Console.WriteLine($"Blog content: {blog.Content}");
+            Console.WriteLine($"[{blog.BlogDateTime}] [{blog.BlogCode}] [{blog.Owner.FirstName} {blog.Owner.LastName}]");
+            Console.WriteLine($"======{blog.Title}======");
+            Console.WriteLine($"{blog.Content}");
             Console.WriteLine();
 
             foreach (Comment comment in blog.Comments)
             {
-                Console.WriteLine($"{comment.RowNumber}. Comment write time: {comment.CommentDateTime} Comment owner: {comment.Owner.FirstName} {comment.Owner.LastName} - Content{comment.Content}.");
+                Console.WriteLine($"{comment.RowNumber}. [{comment.CommentDateTime}] [{comment.Owner.FirstName} {comment.Owner.LastName}] - {comment.Content}.");
             }
         }
 

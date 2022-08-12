@@ -8,12 +8,13 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations
 {
     class BlogValidations
     {
-        public bool IsValidTitle(string title)
+        public bool IsValidTitle(string text)
         {
-            if (Validation.IsLengthBetween(title, 5, 35))
+            if (Validation.IsLengthBetween(text, 5, 35))
             {
                 return true;
             }
+            Console.WriteLine("Length is not correct.");
             return false;
         }
 
@@ -23,6 +24,7 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations
             {
                 return true;
             }
+            Console.WriteLine("Length is not correct.");
             return false;
         }
     }
