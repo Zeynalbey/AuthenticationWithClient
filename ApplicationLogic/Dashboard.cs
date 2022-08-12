@@ -84,7 +84,7 @@ namespace AuthenticationWithClie.ApplicationLogic
 
                 if (command == "/inbox")
                 {
-                   
+                    blogService.ShowInbox();
                 }
                 else if (command == "/add-comment")
                 {

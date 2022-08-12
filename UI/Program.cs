@@ -13,6 +13,7 @@ namespace AuthenticationWithClie.UI
 
             while (true)
             {
+                Console.WriteLine("_________________________________________________________");
                 Console.WriteLine("Commands :");
                 Console.WriteLine("1./register");
                 Console.WriteLine("2./login");

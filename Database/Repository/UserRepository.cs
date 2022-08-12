@@ -14,6 +14,7 @@ namespace AuthenticationWithClie.Database.Repository
     {
         UserValidation userValidation = new UserValidation();
         private static int _idCounter;
+        
 
         public static int IdCounter
         {
@@ -27,10 +28,12 @@ namespace AuthenticationWithClie.Database.Repository
         static UserRepository()
         {
             SeedUsers();
+            
         }
 
         private static void SeedUsers()
         {
+            
             DbContext.Add(new Admin("Mahmood", "Garibov", "male", "qaribovmahmud@gmail.com", "123321"));
             DbContext.Add(new Admin("Eshqin", "Mahmudov", "male", "eshqin@gmail.com", "123321"));
             DbContext.Add(new User("Inci", "Mikayilli", "female", "inci@gmail.com", "123321"));
@@ -46,6 +49,7 @@ namespace AuthenticationWithClie.Database.Repository
                 {
                     return true;
                 }
+
             }
             return false;
         }

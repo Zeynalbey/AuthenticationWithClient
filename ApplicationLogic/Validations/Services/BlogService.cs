@@ -61,6 +61,7 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
                               where Authentication.Account != blog.Owner
                               select blog;
                 BlogRepository.Blogs = NewList.ToList();
+                Console.WriteLine("Your blogs deleted.");
                 /*internetde arasdirdim, yazdim*/
             }
         }
@@ -73,18 +74,7 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
             }
             else
             {
-                foreach (Blog blog in BlogRepository.Blogs)
-                {
-                    if (blog.blogStatus == BlogStatus.Approved)
-                    {
-                        BlogDetails(blog);
-
-                    }
-                    else
-                    {
-                        Console.WriteLine("There are not any approved blogs.");
-                    }
-                }
+                PartOFShowBlogWithComments();
             }
         }
 
@@ -98,9 +88,11 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
                 if (blogCode == blog.BlogCode)
                 {
                     blog.blogStatus = BlogStatus.Approved;
-                    Message message = new Message();
-                    message.BlogCode = blog.BlogCode;
-                    message.BlogStatus = Inbox.Approve;
+                    Message message = new Message(new BlogMessage
+                    {
+                        BlogCode = blog.BlogCode,
+                        Status = Inbox.Approve
+                    });
                     blog.Owner.Inbox.Add(message);
                     Console.WriteLine("Status approved. ");
                     break;
@@ -118,12 +110,30 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
                 if (blogCode == blog.BlogCode )
                 {
                     blog.blogStatus = BlogStatus.Rejected;
-                    Message message = new Message();
-                    message.BlogCode = blog.BlogCode;
-                    message.BlogStatus = Inbox.Approve;
+                    Message message = new Message(new BlogMessage
+                    {
+                        BlogCode = blog.BlogCode,
+                        Status = Inbox.Reject
+                    });
+
                     blog.Owner.Inbox.Add(message);
                     Console.WriteLine("Status rejected. ");
                     break;
+                }
+            }
+        }
+
+        public void ShowInbox()
+        {
+            if (Authentication.Account.Inbox.Count == 0)
+            {
+                Console.WriteLine("There are not any message yet.");
+            }
+            else
+            {
+                foreach (var inbox in Authentication.Account.Inbox)
+                {
+                    Console.WriteLine(inbox.Body);
                 }
             }
         }
@@ -150,16 +160,23 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
                         Comment comment = new Comment(Authentication.Account, content);
                         Console.WriteLine("Comment added.");
 
-                        Message message = new Message();
-                        message.BlogCode = blog.BlogCode;
-                        message.BlogStatus = Inbox.Approve;
+                        Message message = new Message(new CommentMessage
+                        {
+                            BlogCode = blog.BlogCode,
+                            FirstName = Authentication.Account.FirstName,
+                            LastName = Authentication.Account.LastName,
+                        });
 
-                        message.CommentList.Add(comment);
                         blog.Owner.Inbox.Add(message);
 
                         blog.Comments.Add(comment);
-                        blog.Owner.Comments.Add(comment);
+                        
                     }
+                    else if (blog.blogStatus == BlogStatus.Pending)
+                    {
+                        Console.WriteLine("Blog not approved yet.");
+                    }
+
                 }
             }
         }
@@ -170,6 +187,7 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
             {
                 Console.WriteLine("There are not any blogs yet.");
             }
+
             else
             {
                 Console.WriteLine("With which method do you want search blog: ");
@@ -197,11 +215,21 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
             Console.Write("Enter title: ");
             string title = Console.ReadLine();
 
+          
+
             foreach (Blog blog in BlogRepository.Blogs)
             {
-                if (title == blog.Title)
+                if (title == blog.Title & blog.blogStatus == BlogStatus.Approved)
                 {
                     BlogDetails(blog);
+                }
+                else if (title != blog.Title )
+                {
+                    Console.WriteLine("Title is not correct.");
+                }
+                else if (blog.blogStatus != BlogStatus.Approved)
+                {
+                    Console.WriteLine("This blog is not approved.");
                 }
             }
         }
@@ -213,9 +241,17 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
 
             foreach (Blog blog in BlogRepository.Blogs)
             {
-                if (firstName == blog.Owner.FirstName)
+                if (firstName == blog.Owner.FirstName & blog.blogStatus == BlogStatus.Approved)
                 {
                     BlogDetails(blog);
+                }
+                else if (firstName != blog.Owner.FirstName)
+                {
+                    Console.WriteLine("Firstname is not correct.");
+                }
+                else if (blog.blogStatus != BlogStatus.Approved)
+                {
+                    Console.WriteLine("This blog is not approved.");
                 }
             }
         }
@@ -253,5 +289,18 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
             }
         }
 
+
+        private void PartOFShowBlogWithComments()
+        {
+            foreach (Blog blog in BlogRepository.Blogs)
+            {
+                if (blog.blogStatus == BlogStatus.Approved)
+                {
+                    BlogDetails(blog);
+                    return;
+                }
+            }
+            Console.WriteLine("There are not any approved blogs.");
+        }
     }
 }
