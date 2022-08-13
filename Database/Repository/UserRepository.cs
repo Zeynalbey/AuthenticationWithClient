@@ -13,8 +13,8 @@ namespace AuthenticationWithClie.Database.Repository
     public class UserRepository : Repository<User, int>
     {
         UserValidation userValidation = new UserValidation();
+
         private static int _idCounter;
-        
 
         public static int IdCounter
         {
@@ -28,7 +28,6 @@ namespace AuthenticationWithClie.Database.Repository
         static UserRepository()
         {
             SeedUsers();
-            
         }
 
         private static void SeedUsers()
@@ -80,6 +79,5 @@ namespace AuthenticationWithClie.Database.Repository
             Console.WriteLine("This email is not registered.");
             return null;
         }
-
     }
 }

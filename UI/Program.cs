@@ -22,7 +22,6 @@ namespace AuthenticationWithClie.UI
                 Console.WriteLine("5./find-blog-by-code");
                 Console.WriteLine("_________________________________________________________");
                 Console.WriteLine();
-
                 Console.Write("Enter command : ");
                 string command = Console.ReadLine();
 

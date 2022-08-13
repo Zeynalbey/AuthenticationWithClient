@@ -9,18 +9,23 @@ namespace AuthenticationWithClie.Database.Models
 {
     public class Message
     {
-        public string Body { get; set; }
+        public string Result { get; set; }
 
         public Message(BlogMessage blog)
         {
-            Body = blog.Status == Inbox.Approve
-                ? $"{blog.BlogCode} blog is approved by admin. "
-                : $"{blog.BlogCode} blog is rejected by admin. ";
+            if (blog.Status == Inbox.Approve)
+            {
+                Result = $"{blog.BlogCode} blog is approved by admin.";
+            }
+            else
+            {
+                Result = $"{blog.BlogCode} blog is rejected by admin. ";
+            }
         }
 
         public Message(CommentMessage comment)
         {
-            Body = $"{comment.FirstName} {comment.LastName} added comment to your {comment.BlogCode} blog. ";
+            Result = $"{comment.FirstName} {comment.LastName} added comment to your {comment.BlogCode} blog. ";
         }
     }
 

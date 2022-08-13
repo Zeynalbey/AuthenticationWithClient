@@ -25,6 +25,7 @@ namespace AuthenticationWithClie.Database.Repository
             Random random = new Random();
             int num = random.Next(10000, 99999);
             string blogCode = $"BL{num}";
+
             if (blogValidations.IsValidTitle(title) && blogValidations.IsValidContent(content))
             {
                 Blog blog = new Blog(Authentication.Account, content, blogCode, title);
@@ -37,5 +38,6 @@ namespace AuthenticationWithClie.Database.Repository
                 Console.WriteLine("Title or content is not correct! ");
             }
         }
+
     }
 }
