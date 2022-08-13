@@ -7,6 +7,8 @@ namespace AuthenticationWithClie.UI
 {
     internal class Program
     {
+        //Program normal isleyirse, delegate ve genericsleri isletmediyim ucun uzrlu sayin. Oz bildiyim kimi yazmisam. Insallah onlari da front muddetinde hergun practise edecem.
+
         static void Main(string[] args)
         {                     
             BlogService blogService = new BlogService();
