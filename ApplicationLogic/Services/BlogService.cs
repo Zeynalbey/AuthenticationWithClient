@@ -243,11 +243,11 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
 
                 if (command == "title")
                 {
-                    ShowBlogWithCommentsByTitle();
+                    BlogFilteredByTitle();
                 }
                 else if (command == "firstname")
                 {
-                    ShowFilteredBlogWithCommentsByFirstname();
+                    BlogFilteredByFirstname();
                 }
                 else
                 {
@@ -286,7 +286,7 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
     }
     public partial class BlogService
     {
-        private void ShowBlogWithCommentsByTitle()
+        private void BlogFilteredByTitle()
         {
             Console.Write("Enter title: ");
             string title = Console.ReadLine();
@@ -306,7 +306,7 @@ namespace AuthenticationWithClie.ApplicationLogic.Validations.Services
             }
         }
 
-        private void ShowFilteredBlogWithCommentsByFirstname()
+        private void BlogFilteredByFirstname()
         {
             Console.Write("Enter firstname:  ");
             string firstName = Console.ReadLine();
